@@ -1,0 +1,97 @@
+<html>
+<head> <title>Test Inputs::MooseClass.pm</title>
+<script src="js/jquery.js" ></script>
+<script src="js/jquery-ui.js" ></script>
+
+<script src="js/highlight.pack.js" ></script>
+
+<script src="js/index.js" ></script>
+<script src="js/search.js" ></script>
+<script src="js/documenter.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/github.css" />
+<link rel="stylesheet" type="text/css" href="css/documenter.css" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="feed.rss">
+
+ <script>
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+<div id="toolbar" class="ui-widget-content ui-widget-header ui-corner-all" style="display:none;">
+	<center>
+		<button id="upbutton">Index</button>
+		<button id="indexbutton">Outline</button>&nbsp;
+		<span id="search"></span>
+		<span id="collapseexpand">
+			<button id="collapseall">Collapse Code</button>
+			<button id="expandall">Expand Code</button>
+		</span>
+		<button id="print">Print</button>
+	</center>
+</div>
+<div id="index" class="ui-widget-content ui-corner-all" style="padding: 5px">
+	<noscript><a href="static_index.html">Click here to show the complete source index.</a>
+	</noscript>
+</div>
+<div id="content"><a name="line_1" /><div class="code"><pre><code class="perl">use strict;
+use MooseX::Declare;</code></pre></div><a name="line_6" /><h1>Some class doing stuff in Perl</h1>
+
+<p>In this class, we do some crazy Moose stuff.</p>
+<a name="line_10" /><a name="line_12" /><div class="code"><pre><code class="perl">class MooseClass {</code></pre></div><a name="line_14" /><h2>This method does cool things.</h2>
+
+<p><strong>Here&#39;s some Moose trivia:</strong></p>
+
+<p>Remember to always keep the method declaration in one line,
+like this:</p>
+
+<pre><code>method some_method(Int $i) { ...
+</code></pre>
+
+<p>NEVER MOVE THE OPENING BRACKET OR PARAMETERS TO THE NEXT LINE.</p>
+
+<pre><code>method some_method(Int $i)
+{ ...
+</code></pre>
+
+<p>Otherwise, bad things happen in Moose-land.</p>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$i : A number </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>That number $i, incremented. </p>
+</blockquote>
+<a name="line_36" /><div class="code"><pre><code class="perl">method some_method(Int $i) {</code></pre></div><a name="line_38" /><strong>## </strong><span class="monospaced"> This is where we increment $i  Also, double-hash comments split code into sections with  an anchor </span><a name="line_41" /><div class="code"><pre><code class="perl">return $i + 1;
+	}</code></pre></div><a name="line_44" /><a name="line_46" /><h2>Hiding Source Code</h2>
+
+<p>Sometimes, we might not want to show all code in the documentation.
+This is achieved using the</p>
+
+<pre><code>## show source
+</code></pre>
+
+<p>and</p>
+
+<pre><code>## hide source
+</code></pre>
+
+<p>comments.</p>
+<a name="line_65" /><a name="line_66" /><a name="line_67" /><strong>## </strong><span class="monospaced"> this method is shown including source </span><a name="line_68" /><div class="code"><pre><code class="perl">method shown() {
+		# this method will be shown in documentation
+	}
+
+}</code></pre></div></div>
+<div id="footer" class="ui-widget-content ui-widget-header ui-corner-all">Generated using <a href="https://github.com/pkrusche/documenter">Perl Documenter</a> &copy; 2012 Peter Krusche</div>
+</body>
+</html>

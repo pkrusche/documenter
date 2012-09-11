@@ -1,0 +1,248 @@
+<html>
+<head> <title>Tools::PerlParser::Declaration.pm</title>
+<script src="js/jquery.js" ></script>
+<script src="js/jquery-ui.js" ></script>
+
+<script src="js/highlight.pack.js" ></script>
+
+<script src="js/index.js" ></script>
+<script src="js/search.js" ></script>
+<script src="js/documenter.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/github.css" />
+<link rel="stylesheet" type="text/css" href="css/documenter.css" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="feed.rss">
+
+ <script>
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+<div id="toolbar" class="ui-widget-content ui-widget-header ui-corner-all" style="display:none;">
+	<center>
+		<button id="upbutton">Index</button>
+		<button id="indexbutton">Outline</button>&nbsp;
+		<span id="search"></span>
+		<span id="collapseexpand">
+			<button id="collapseall">Collapse Code</button>
+			<button id="expandall">Expand Code</button>
+		</span>
+		<button id="print">Print</button>
+	</center>
+</div>
+<div id="index" class="ui-widget-content ui-corner-all" style="padding: 5px">
+	<noscript><a href="static_index.html">Click here to show the complete source index.</a>
+	</noscript>
+</div>
+<div id="content"><a name="line_1" /><h1>Declaration class</h1>
+
+<p>Base class for</p>
+<a name="line_6" /><div class="code"><pre><code class="perl">package Tools::PerlParser::Declaration;
+
+use strict;
+use warnings;
+
+use Scalar::Util qw (blessed);
+
+# everything that will be accepted as a Moose keyword
+our @moose_keywords =
+  ( &quot;method&quot;, &quot;class&quot;, &quot;role&quot;, &quot;type&quot;, &quot;subtype&quot;, &quot;enum&quot;, &quot;has&quot; );</code></pre></div><a name="line_19" /><h2>Constructor for a new declaration element</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$ppinode : a PPI Element from the PPI parse tree </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>A blessed Declaration HASHREF </p>
+</blockquote>
+<a name="line_27" /><div class="code"><pre><code class="perl">sub new {
+    my $class = shift;
+    my $cur = shift;
+    my $self = bless {}, $class;
+
+    $self-&gt;{ppinode} = $cur;
+
+    if ( UNIVERSAL::isa( $cur, &quot;PPI::Statement::Package&quot; ) ) {
+        $self-&gt;{title} = $cur-&gt;schild(1)-&gt;content();
+        $self-&gt;{type} = &quot;package&quot;;
+    }
+    elsif ( UNIVERSAL::isa( $cur, &quot;PPI::Statement::Sub&quot; ) ) {
+        $self-&gt;{title} = $cur-&gt;name();
+        $self-&gt;{type} = &quot;sub&quot; ;
+    }
+    elsif ( UNIVERSAL::isa( $cur, &quot;PPI::Statement::Variable&quot; ) ) {
+        $self-&gt;{title} = ( join &quot;;&quot;, $cur-&gt;variables() );
+        $self-&gt;{type} = $cur-&gt;type();
+    }
+    elsif ( UNIVERSAL::isa( $cur, &quot;PPI::Token::Word&quot; ) ) {
+        our @moose_keywords;
+        my $stype = $cur;
+        my $sname = undef;
+
+        my $match = 0;
+
+        foreach (@moose_keywords) {
+            if ( $_ eq $cur-&gt;content() ) {
+                $match = 1;
+                last;
+            }
+        }
+        $sname = $cur-&gt;next_token();
+        while (defined($sname)
+            &amp;&amp; $sname
+            &amp;&amp; !$sname-&gt;significant() )
+        {
+            $sname = $sname-&gt;next_token();
+        }
+
+        if ( defined($sname) &amp;&amp; $sname ) {
+            $self-&gt;{title} = $sname-&gt;content();
+            $self-&gt;{type} = $stype-&gt;content();
+        }
+
+    }
+    elsif ( UNIVERSAL::isa( $cur, &quot;PPI::Element&quot; ) ) {
+        $self-&gt;{title} = $cur-&gt;content();
+        $self-&gt;{type} = blessed($cur);
+    }
+    else {
+        $self-&gt;{title} = $cur;
+        $self-&gt;{type} = &quot;unknown&quot;;
+    }
+
+    return $self;
+}</code></pre></div><a name="line_87" /><h2>Static: Check if a PPI node is a declaration</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$cur : a PPI element 
+$has_moose : 1 if Moose declarations should be accepted </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>1 if $cur points to a declaration, 0 otherwise </p>
+</blockquote>
+<a name="line_96" /><div class="code"><pre><code class="perl">sub is_declaration {
+    my $cur = shift;
+    my $has_moose = shift;
+
+    if ( UNIVERSAL::isa( $cur, &quot;PPI::Statement::Package&quot; ) ) {
+        return 1;
+    }
+    elsif ( UNIVERSAL::isa( $cur, &quot;PPI::Statement::Sub&quot; ) ) {
+        return 1;
+    }
+    elsif ( UNIVERSAL::isa( $cur, &quot;PPI::Statement::Variable&quot; ) ) {
+        return 1;
+    }
+    elsif ($has_moose) {
+        our @moose_keywords;
+
+        my $stype = $cur;
+        my $sname = undef;
+
+        if ( UNIVERSAL::isa( $cur, &quot;PPI::Token::Word&quot; ) ) {
+            my $match = 0;
+
+            foreach (@moose_keywords) {
+                if ( $_ eq $cur-&gt;content() ) {
+                    $match = 1;
+                    last;
+                }
+            }
+
+            return 0 unless $match;
+
+            $sname = $cur-&gt;next_token();
+            while (defined($sname)
+                &amp;&amp; $sname
+                &amp;&amp; !$sname-&gt;significant() )
+            {
+                $sname = $sname-&gt;next_token();
+            }
+
+            if ( defined($sname) &amp;&amp; $sname ) {
+                return 1;
+            }
+        }
+
+    }
+    return 0;
+}</code></pre></div><a name="line_145" /><h2>Change the name of a declaration</h2>
+<a name="line_147" /><div class="code"><pre><code class="perl">sub rename {
+    my $cur = shift;
+    my $newname = shift;
+    my $has_moose = shift;
+
+    if ( UNIVERSAL::isa( $cur, &quot;PPI::Statement::Package&quot; )
+    ||   UNIVERSAL::isa( $cur, &quot;PPI::Statement::Sub&quot; )
+    ) {
+        $cur-&gt;schild(1)-&gt;{content} = $newname;
+    }
+    elsif ( UNIVERSAL::isa( $cur, &quot;PPI::Statement::Variable&quot; ) ) {
+        die &quot;Cannot rename variables so far.&quot;
+    }
+    elsif ($has_moose) {
+        our @moose_keywords;
+
+        my $stype = $cur;
+        my $sname = undef;
+
+        if ( UNIVERSAL::isa( $cur, &quot;PPI::Token::Word&quot; ) ) {
+            my $match = 0;
+
+            foreach (@moose_keywords) {
+                if ( $_ eq $cur-&gt;content() ) {
+                    $match = 1;
+                    last;
+                }
+            }
+
+            return 0 unless $match;
+
+            $sname = $cur-&gt;next_token();
+            while (defined($sname)
+                &amp;&amp; $sname
+                &amp;&amp; !$sname-&gt;significant() )
+            {
+                $sname = $sname-&gt;next_token();
+            }
+
+            if ( defined($sname) &amp;&amp; $sname ) {
+                $sname-&gt;{content} = $newname;
+            }
+        }
+
+    }
+}</code></pre></div><a name="line_195" /><h2>Get the starting location of the declaration</h2>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>[ Start token, End token ] </p>
+</blockquote>
+<a name="line_200" /><div class="code"><pre><code class="perl">sub get_start_and_end_tokens {
+    my $self = shift;
+
+    my $start = $self-&gt;{ppinode};
+    my $end = $start-&gt;next_sibling()-&gt;previous_token();
+
+    return [$start, $end];
+}
+
+1;</code></pre></div></div>
+<div id="footer" class="ui-widget-content ui-widget-header ui-corner-all">Generated using <a href="https://github.com/pkrusche/documenter">Perl Documenter</a> &copy; 2012 Peter Krusche</div>
+</body>
+</html>

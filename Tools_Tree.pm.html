@@ -1,0 +1,211 @@
+<html>
+<head> <title>Tools::Tree.pm</title>
+<script src="js/jquery.js" ></script>
+<script src="js/jquery-ui.js" ></script>
+
+<script src="js/highlight.pack.js" ></script>
+
+<script src="js/index.js" ></script>
+<script src="js/search.js" ></script>
+<script src="js/documenter.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/github.css" />
+<link rel="stylesheet" type="text/css" href="css/documenter.css" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="feed.rss">
+
+ <script>
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+<div id="toolbar" class="ui-widget-content ui-widget-header ui-corner-all" style="display:none;">
+	<center>
+		<button id="upbutton">Index</button>
+		<button id="indexbutton">Outline</button>&nbsp;
+		<span id="search"></span>
+		<span id="collapseexpand">
+			<button id="collapseall">Collapse Code</button>
+			<button id="expandall">Expand Code</button>
+		</span>
+		<button id="print">Print</button>
+	</center>
+</div>
+<div id="index" class="ui-widget-content ui-corner-all" style="padding: 5px">
+	<noscript><a href="static_index.html">Click here to show the complete source index.</a>
+	</noscript>
+</div>
+<div id="content"><a name="line_1" /><div class="code"><pre><code class="perl">use MooseX::Declare;</code></pre></div><a name="line_6" /><h1>Tree class</h1>
+
+<pre><code>Contains functions for adding children and traversing top-down
+</code></pre>
+<a name="line_10" /><div class="code"><pre><code class="perl">class Tools::Tree {
+
+    use Data::Dumper;
+    use Scalar::Util qw(blessed);
+
+    # Parent node of this tree</code></pre></div><a name="line_17" /><div class="code"><pre><code class="perl">has &#39;parent&#39; =&gt; (
+        is      =&gt; &#39;rw&#39;,
+        isa     =&gt; &#39;Undef|Tools::Tree&#39;,
+        default =&gt; undef,
+    );
+
+    # Array of children</code></pre></div><a name="line_24" /><div class="code"><pre><code class="perl">has &#39;children&#39; =&gt; (
+        is      =&gt; &#39;rw&#39;,
+        isa     =&gt; &#39;ArrayRef[Tools::Tree]&#39;,
+        default =&gt; sub { [] },
+    );
+
+    # Each tree node can store a value</code></pre></div><a name="line_31" /><div class="code"><pre><code class="perl">has &#39;value&#39; =&gt; (
+        is      =&gt; &#39;rw&#39;,
+        isa     =&gt; &#39;Any&#39;,
+        default =&gt; undef,
+    );</code></pre></div><a name="line_37" /><h2>add a child node</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$value : the value to add to the node </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>The node that was created </p>
+</blockquote>
+<a name="line_45" /><div class="code"><pre><code class="perl">method add_child( Any $value ) {
+    	my $class = blessed ($self);
+        my $n = $class-&gt;new();
+          $n-&gt;value($value);
+          $n-&gt;parent($self);
+          push @{ $self-&gt;{children} }, $n;
+          return $n;
+      }</code></pre></div><a name="line_55" /><h2>remove all children with a certain value</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$value : the value to compare to (string comparison) </p>
+</blockquote>
+<a name="line_60" /><a name="line_62" /><div class="code"><pre><code class="perl">method delete_children( Any $value ) {
+        my @children = @{$self-&gt;children};
+
+        if (ref($value) ne &#39;CODE&#39;) {
+            @children = grep {$_-&gt;value ne $value} @{$self-&gt;children};
+        } else {
+            @children = grep {! $value-&gt;($_-&gt;value) } @{$self-&gt;children};
+        }
+        $self-&gt;children(\@children);
+    }</code></pre></div><a name="line_74" /><h2>add a tree as a child node</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$n : a subtree to append </p>
+</blockquote>
+
+<pre><code>Returns: $self
+</code></pre>
+<a name="line_81" /><div class="code"><pre><code class="perl">method add_child_node(Tools::Tree $n) {
+        $n-&gt;parent($self);
+        push @{ $self-&gt;{children} }, $n;
+        return $self;
+    }</code></pre></div><a name="line_88" /><h2>Traverse tree top to bottom</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$c : a coderef that might return something for each node </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>An array containing all values $c-&gt;($v) for all values $v in the tree </p>
+</blockquote>
+<a name="line_96" /><div class="code"><pre><code class="perl">method traverse( CodeRef $c) {
+        my $arr = [];
+        { # Moose Trivia: mess with $_ and Moose f**cks up $self. Just like that.
+            local $_ = [ $self-&gt;value() ];
+            push @$arr, $c-&gt;();
+        }
+
+        foreach ( @{ $self-&gt;{children} } ) {
+            my $arr2 = $_-&gt;traverse($c);
+
+            foreach (@$arr2) {
+                push @$arr, $_;
+            }
+        }
+        return $arr;
+    }</code></pre></div><a name="line_114" /><h2>Traverse tree top to bottom, passing the value by reference</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$c : a coderef that might return something for each node </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>An array containing all values $c-&gt;($v) for all values $v in the tree </p>
+</blockquote>
+<a name="line_122" /><div class="code"><pre><code class="perl">method traverse_update( CodeRef $c) {
+        { # Moose Trivia: mess with $_ and weird stuff happens.
+            local $_ = [ $self-&gt;value(), $self-&gt;{name}];
+            $self-&gt;{value} = $c-&gt;();
+        }
+
+        foreach ( @{ $self-&gt;{children} } ) {
+            $_-&gt;traverse_update($c);
+        }
+    }</code></pre></div><a name="line_135" /><h2>Convert tree to JSON-compatible tree.</h2>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>untyped, JSON-compatible tree (removing the parent links) </p>
+</blockquote>
+<a name="line_139" /><div class="code"><pre><code class="perl">method TO_JSON () {
+        my %h = %$self;
+        delete $h{parent};
+        $h{children} = [];
+        foreach my $c (@{$self-&gt;{children}}) {
+            push @{$h{children}}, $c-&gt;TO_JSON();
+        }
+
+        return \%h;
+    }</code></pre></div><a name="line_151" /><h2>restore parent links and blessings after serializing to JSON</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$hash : JSON-compatible hash (see TO_JSON) </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>$self </p>
+</blockquote>
+<a name="line_158" /><div class="code"><pre><code class="perl">method FROM_JSON(HashRef $hash) {
+    	my $class = blessed ($self);
+        $self-&gt;{value} = $hash-&gt;{value};
+        $self-&gt;{children} = [];
+        $self-&gt;{parent} = undef;
+        foreach my $c (@{$hash-&gt;{children}}) {
+            my $t = $class-&gt;new()-&gt;FROM_JSON($c);
+            $t-&gt;{parent} = $self;
+            push @{$self-&gt;{children}}, $t;
+        }
+        return $self;
+    }
+};</code></pre></div></div>
+<div id="footer" class="ui-widget-content ui-widget-header ui-corner-all">Generated using <a href="https://github.com/pkrusche/documenter">Perl Documenter</a> &copy; 2012 Peter Krusche</div>
+</body>
+</html>

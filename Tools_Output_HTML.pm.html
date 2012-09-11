@@ -1,0 +1,140 @@
+<html>
+<head> <title>Tools::Output::HTML.pm</title>
+<script src="js/jquery.js" ></script>
+<script src="js/jquery-ui.js" ></script>
+
+<script src="js/highlight.pack.js" ></script>
+
+<script src="js/index.js" ></script>
+<script src="js/search.js" ></script>
+<script src="js/documenter.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/github.css" />
+<link rel="stylesheet" type="text/css" href="css/documenter.css" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="feed.rss">
+
+ <script>
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+<div id="toolbar" class="ui-widget-content ui-widget-header ui-corner-all" style="display:none;">
+	<center>
+		<button id="upbutton">Index</button>
+		<button id="indexbutton">Outline</button>&nbsp;
+		<span id="search"></span>
+		<span id="collapseexpand">
+			<button id="collapseall">Collapse Code</button>
+			<button id="expandall">Expand Code</button>
+		</span>
+		<button id="print">Print</button>
+	</center>
+</div>
+<div id="index" class="ui-widget-content ui-corner-all" style="padding: 5px">
+	<noscript><a href="static_index.html">Click here to show the complete source index.</a>
+	</noscript>
+</div>
+<div id="content"><a name="line_1" /><div class="code"><pre><code class="perl">use MooseX::Declare;</code></pre></div><a name="line_6" /><h1>HTML Output Package</h1>
+
+<pre><code>HTML Output implementation
+</code></pre>
+<a name="line_10" /><a name="line_12" /><div class="code"><pre><code class="perl">class Tools::Output::HTML extends Tools::Output {
+    use HTML::Entities;
+    use URI::Escape;
+    use Data::Dumper;
+    use JSON;
+    use File::Temp qw(tempfile);
+    use Tools::CommentSpecials qw(markdown_specials);</code></pre></div><a name="line_20" /><strong>## </strong><span class="monospaced"> append text </span><a name="line_21" /><div class="code"><pre><code class="perl">method t( Str $text ) {
+        $self-&gt;{result}.= $text;
+    }</code></pre></div><a name="line_25" /><strong>## </strong><span class="monospaced"> append escaped text </span><a name="line_26" /><div class="code"><pre><code class="perl">method xt( Str $text ) {
+        $self-&gt;{result}.= $self-&gt;x($text);
+    }</code></pre></div><a name="line_30" /><strong>## </strong><span class="monospaced"> append a hrule </span><a name="line_31" /><div class="code"><pre><code class="perl">method hr() {
+        $self-&gt;{result}.= &quot;&lt;hr/&gt;&quot;;
+    }</code></pre></div><a name="line_35" /><strong>## </strong><span class="monospaced"> append a line break </span><a name="line_36" /><div class="code"><pre><code class="perl">method br() {
+        $self-&gt;{result}.= &quot;&lt;br/&gt;&quot;;
+    }</code></pre></div><a name="line_40" /><strong>## </strong><span class="monospaced"> append a par </span><a name="line_41" /><div class="code"><pre><code class="perl">method p() {
+        $self-&gt;{result}.= &quot;&lt;p/&gt;&quot;;
+    }</code></pre></div><a name="line_45" /><h2>Decorators</h2>
+
+<p>Decorator functions add markup to the text passed and return the result.</p>
+<a name="line_49" /><a name="line_51" /><strong>## </strong><span class="monospaced"> headings </span><a name="line_52" /><div class="code"><pre><code class="perl">method h(Str $text, Int $level?) {
+        $level ||= 1;
+        return &quot;&lt;h$level&gt;&quot;.$self-&gt;x($text).&quot;&lt;/h$level&gt;&quot;;
+    }</code></pre></div><a name="line_57" /><strong>## </strong><span class="monospaced"> boldface </span><a name="line_58" /><div class="code"><pre><code class="perl">method b (Str $text ) {
+        return &quot;&lt;strong&gt;${text}&lt;/strong&gt;&quot;;
+    }</code></pre></div><a name="line_62" /><strong>## </strong><span class="monospaced"> italic/emph </span><a name="line_63" /><div class="code"><pre><code class="perl">method i(Str $text ) {
+        return &quot;&lt;em&gt;$text&lt;/em&gt;&quot;;
+    }</code></pre></div><a name="line_67" /><strong>## </strong><span class="monospaced">&amp;Acirc;&amp;nbsp;tt font </span><a name="line_68" /><div class="code"><pre><code class="perl">method tt(Str $text) {
+        return &quot;&lt;span class=\&quot;monospaced\&quot;&gt;$text&lt;/span&gt;&quot;;
+    }</code></pre></div><a name="line_72" /><strong>## </strong><span class="monospaced"> escape text </span><a name="line_73" /><div class="code"><pre><code class="perl">method x($text) {
+        return encode_entities($text);
+    }</code></pre></div><a name="line_77" /><strong>## </strong><span class="monospaced"> make an anchor. </span><a name="line_78" /><div class="code"><pre><code class="perl">method a($name) {
+        $name =~ s/\&quot;/_/g;
+        $self-&gt;{result}.= &quot;&lt;a name=\&quot;$name\&quot; /&gt;&quot;;
+    }</code></pre></div><a name="line_83" /><strong>## </strong><span class="monospaced"> make a link. </span><a name="line_84" /><div class="code"><pre><code class="perl">method l($text, $link) {
+        return &quot;&lt;a href=\&quot;$link\&quot;&gt;$text&lt;/a&gt;&quot;;
+    }</code></pre></div><a name="line_88" /><strong>## </strong><span class="monospaced"> assign some style </span><a name="line_89" /><div class="code"><pre><code class="perl">method style($text, $style) {
+        return &quot;&lt;span style=\&quot;$style\&quot;&gt;$text&lt;/span&gt;&quot;;
+    }</code></pre></div><a name="line_93" /><h2>Pretty-print code</h2>
+
+<p>(we use Perl code pretty printing)</p>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$code : the code 
+   $type : the type of code (perl/pod/md/&hellip;) </p>
+</blockquote>
+<a name="line_101" /><div class="code"><pre><code class="perl">method code(Str $code, Str $type?, Str $startline?) {
+        $startline ||= 1;
+
+        if ($type eq &#39;pod&#39;) {
+            my ($fh, $fn) = tempfile;
+            print $fh $code;
+            close $fh;
+            my $parser = Pod::Markdown-&gt;new;
+            $parser-&gt;parse_from_file($fn);
+            $self-&gt;code($parser-&gt;as_markdown, &#39;md&#39;);
+        } elsif ($type eq &#39;md&#39;) {
+            use File::Which qw(where);
+
+            $code = markdown_specials($code);</code></pre></div><a name="line_117" /><strong>## </strong><span class="monospaced">&amp;Acirc;&amp;nbsp;we prefer redcarpet because it does &amp;Acirc;&amp;nbsp;fenced code blocks and extensions </span><a name="line_119" /><div class="code"><pre><code class="perl">my @rc = where(&#39;redcarpet&#39;);
+            if (scalar @rc == 0) {
+                # print &quot;[I] Using Text::Markdown for markdown rendering\n&quot;;
+                use Text::Markdown &#39;markdown&#39;;
+                $self-&gt;t(markdown($code));
+            } else {
+                # print &quot;[I] Using $rc[0] for markdown rendering\n&quot;;
+                my ($fh, $fn) = tempfile;
+                print $fh $code;
+                close $fh;
+                my $mdtext = `&quot;$rc[0]&quot; --parse-fenced_code_blocks --parse-superscript --parse-no_intra_emphasis --smarty $fn`;
+                $self-&gt;t($mdtext);
+            }
+
+        } else {
+            my $class = &quot;&quot;;
+            if (defined $type) {
+                $class = &quot;class=\&quot;$type\&quot;&quot;;
+            }
+
+            # remove newlines
+            $code=~ s/^[\s\n\r\t]+//;
+            $code=~ s/[\s\n\r\t]+$//;
+
+            $self-&gt;{result} .= &quot;&lt;div class=\&quot;code\&quot;&gt;&lt;pre&gt;&lt;code $class&gt;&quot;;
+            $self-&gt;{result} .= encode_entities($code);
+            $self-&gt;{result} .= &quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&quot;;
+        }
+    }
+
+
+}</code></pre></div></div>
+<div id="footer" class="ui-widget-content ui-widget-header ui-corner-all">Generated using <a href="https://github.com/pkrusche/documenter">Perl Documenter</a> &copy; 2012 Peter Krusche</div>
+</body>
+</html>

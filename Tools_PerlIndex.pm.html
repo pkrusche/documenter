@@ -1,0 +1,448 @@
+<html>
+<head> <title>Tools::PerlIndex.pm</title>
+<script src="js/jquery.js" ></script>
+<script src="js/jquery-ui.js" ></script>
+
+<script src="js/highlight.pack.js" ></script>
+
+<script src="js/index.js" ></script>
+<script src="js/search.js" ></script>
+<script src="js/documenter.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/github.css" />
+<link rel="stylesheet" type="text/css" href="css/documenter.css" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="feed.rss">
+
+ <script>
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+<div id="toolbar" class="ui-widget-content ui-widget-header ui-corner-all" style="display:none;">
+	<center>
+		<button id="upbutton">Index</button>
+		<button id="indexbutton">Outline</button>&nbsp;
+		<span id="search"></span>
+		<span id="collapseexpand">
+			<button id="collapseall">Collapse Code</button>
+			<button id="expandall">Expand Code</button>
+		</span>
+		<button id="print">Print</button>
+	</center>
+</div>
+<div id="index" class="ui-widget-content ui-corner-all" style="padding: 5px">
+	<noscript><a href="static_index.html">Click here to show the complete source index.</a>
+	</noscript>
+</div>
+<div id="content"><a name="line_1" /><h1>Perl Library Indexer</h1>
+
+<p>Create an index of perl files that allows retrieval of declarations
+and references to these.</p>
+<a name="line_7" /><div class="code"><pre><code class="perl">package Tools::PerlIndex;
+
+use strict;
+use warnings;
+use feature &quot;:5.10&quot;;
+
+use Carp qw(croak);
+use Cwd;
+use File::Find;
+use File::Spec;
+use Data::Dumper;
+use Storable qw(retrieve nstore);
+use Digest::MD5 qw(md5_hex);
+use Module::CoreList;
+
+use PPI;
+
+use Tools::PerlParser;</code></pre></div><a name="line_27" /><h1>Constructor</h1>
+
+<pre><code>Parse a directory of perl modules into an index.
+</code></pre>
+<a name="line_31" /><div class="code"><pre><code class="perl">sub new {
+	my $class = shift;
+	my $directory = shift || getcwd;
+
+	my $self = bless ({
+		files =&gt; [],
+		identifiers =&gt; {},
+		declarations =&gt; [],
+		ppidocuments =&gt; {},
+		sourcedirectory =&gt; $directory,
+		md5s =&gt; {},
+	}, $class);
+
+	my @directories = ($directory);
+
+	my $ddbfile = File::Spec-&gt;catfile(@directories, &quot;.refactoring_declarations&quot;);
+	my $mdbfile = File::Spec-&gt;catfile(@directories, &quot;.refactoring_checksums&quot;);
+	my $pdbfile = File::Spec-&gt;catfile(@directories, &quot;.refactoring_parsing&quot;);
+
+	if(-e $ddbfile) {
+		$self-&gt;{declarations} = retrieve($ddbfile);
+
+		if(-e $mdbfile) {
+			$self-&gt;{md5s} = retrieve($mdbfile);
+		}
+		if(-e $pdbfile) {
+			$self-&gt;{ppidocuments} = retrieve($pdbfile);
+		}
+	}
+
+	my @files = ();
+
+	find( { &#39;wanted&#39; =&gt; sub { push @files, $_ if m/\.p[lm]$/ },
+			no_chdir =&gt; 1, }, @directories );
+
+	$self-&gt;{files} = \@files;
+
+	foreach my $parsedfile (keys %{$self-&gt;{ppidocuments}}) {
+		unless (grep /^$parsedfile$/, @files) {
+			print STDERR &quot;Removing $parsedfile from cache\n&quot;;
+
+			my @decl_cpy = ();
+			foreach my $decl (@{$self-&gt;{declarations}}) {
+				if($decl-&gt;{file} ne $parsedfile) {
+					push @decl_cpy, $decl;
+				}
+			}
+			$self-&gt;{declarations} = \@decl_cpy;
+			delete $self-&gt;{ppidocuments}-&gt;{$parsedfile};
+			delete $self-&gt;{md5s}-&gt;{$parsedfile};
+		}
+	}
+
+	foreach my $file (@files) {
+
+		my $filemd5 = &quot;&quot;;
+		{
+			local $/ = undef;
+			open(FILE, $file) or die &quot;Can&#39;t open &#39;$file&#39;: $!&quot;;
+	    	binmode(FILE);
+			$filemd5 = md5_hex(&lt;FILE&gt;);
+			close(FILE);
+		}
+
+		if ( exists ($self-&gt;{md5s}-&gt;{$file})
+		  &amp;&amp; $self-&gt;{md5s}-&gt;{$file} eq $filemd5 ) {
+			# file has not changed and we have it&#39;s parse tree, too
+			# leave it be.
+
+			if(defined ($self-&gt;{ppidocuments}-&gt;{$file})) {
+				goto NEXT;
+			}
+		}
+
+		# remove all declarations in this file from our index
+		print STDERR &quot;Recreating cache for $file\n&quot;;
+
+		my @decl_cpy = ();
+		foreach my $decl (@{$self-&gt;{declarations}}) {
+			if($decl-&gt;{file} ne $file) {
+				push @decl_cpy, $decl;
+			}
+		}
+		$self-&gt;{declarations} = \@decl_cpy;
+
+		Tools::PerlParser::parse($file);
+		$self-&gt;{ppidocuments}-&gt;{$file} = Tools::PerlParser::get_ppi_document();
+
+		my %linenumbers;
+
+		Tools::PerlParser::get_declarations()-&gt;traverse(sub {
+			my $identifier = &quot;$file\:\:$_-&gt;[0]-&gt;{title}&quot;;
+			my $type = $_-&gt;[0]-&gt;{type};
+
+			if($type eq &#39;package&#39; || $type eq &#39;class&#39;) {
+				$identifier = $_-&gt;[0]-&gt;{title};
+			}
+
+			$identifier =~ s/^$directory\/?//;
+			$identifier =~ s/\//::/g;
+			$identifier =~ s/\.p[lm]\:\:/::/g;
+
+			my $r = {
+				file =&gt; $file,
+				location =&gt; $_-&gt;[0]-&gt;{location},
+				name =&gt; $_-&gt;[0]-&gt;{title},
+				type =&gt; $type,
+				identifier =&gt; $identifier,
+				ppinode =&gt; $_-&gt;[0]-&gt;{ppinode},
+				ppidoc =&gt; $self-&gt;{ppidocuments}-&gt;{$file},
+			};
+
+			push @{$self-&gt;{declarations}}, $r;
+		});
+	NEXT:
+		$self-&gt;{md5s}-&gt;{$file} = $filemd5;
+	}
+
+	foreach my $r (@{$self-&gt;{declarations}}) {
+		# print &quot;$r-&gt;{identifier} : $r-&gt;{type}\n&quot;;
+		$self-&gt;{identifiers}-&gt;{$r-&gt;{identifier}} = $r;
+	}
+
+	nstore($self-&gt;{declarations}, $ddbfile);
+	nstore($self-&gt;{ppidocuments}, $pdbfile);
+	nstore($self-&gt;{md5s}, $mdbfile);
+
+	return $self;
+}</code></pre></div><a name="line_162" /><h1>Split a perl identifier name into a path, a file name and a declaration</h1>
+
+<p>name</p>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$source : the identifier 
+   $mustexist : 1 if the identifier must exist </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>a declaration record: 
+   { 
+      file =&gt; <filename>, 
+      location =&gt; line number, </p>
+</blockquote>
+
+<pre><code>}
+</code></pre>
+<a name="line_177" /><div class="code"><pre><code class="perl">sub splitPath {
+	my $self = shift;
+	my $source = shift || die &quot;Empty identifier&quot;;
+	my $mustexist = shift || 0;
+
+	my $file;
+	my $decl;
+
+	if($mustexist) {
+		if(exists ($self-&gt;{identifiers}-&gt;{$source})
+		&amp;&amp; defined ($self-&gt;{identifiers}-&gt;{$source})) {
+			return $self-&gt;{identifiers}-&gt;{$source};
+		} else {
+			croak &quot;&#39;$source&#39; is not defined&quot;;
+		}
+	} else {
+		my @parts = split /\:\:/, $source;
+		my $r = {};
+
+		$r-&gt;{identifier} = $source;
+		$r-&gt;{type} = &quot;unknown&quot;;
+		$r-&gt;{location} = &quot;unknown&quot;;
+
+		if(scalar @parts &gt;= 2) {
+			$r-&gt;{name} = pop @parts;
+			$r-&gt;{file} = pop @parts;
+			$r-&gt;{file} =
+				File::Spec-&gt;catfile(@parts, $r-&gt;{file} . &quot;.pm&quot;);
+		} else {	# scalar @parts must be == 1, since otherwise $source
+					# would have been empty
+			$r-&gt;{name} = join &quot;::&quot;, @parts;
+			$r-&gt;{file} =
+				File::Spec-&gt;catfile(@parts, $r-&gt;{name} . &quot;.pm&quot;);
+		}
+
+		$r-&gt;{file} = File::Spec-&gt;catfile(
+			( $self-&gt;{sourcedirectory} ),
+			$r-&gt;{file} );
+
+		$r-&gt;{file} =~ s/[\$\@\%]//g;
+
+		return $r;
+	}
+
+	return undef;
+}</code></pre></div><a name="line_225" /><h1>Get all references to an identifier</h1>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$self : a PerlIndex 
+   $id : identifier </p>
+</blockquote>
+
+<pre><code>Returns
+
+ARRAYREF to all references including file, line number, and match string
+
+[ { file =&gt; ..., location =&gt; ..., match =&gt; ..., ppidoc =&gt; PPI document,
+    ppitok =&gt; PPI start token,
+  }, ... ]
+</code></pre>
+<a name="line_239" /><div class="code"><pre><code class="perl">sub getReferences {
+	my $self = shift;
+	my $id = shift;
+
+	# package identifiers include their name twice
+	my $pid = $id;
+	$pid =~ s/([^\:]+)\:{2}\g1$/$1/;
+
+	my $r = $self-&gt;splitPath($id, 1);
+
+	my @references = ();
+
+	my $containingpackage = $r-&gt;{identifier};
+	my $title = $r-&gt;{name};
+
+	# when packages are declared inside packages inside files,
+	# we want to also find references where just the top level
+	# file package is included.
+	$containingpackage =~ s/\:\:$title$//;
+
+	foreach my $file ( @{$self-&gt;{files}} ) {
+		given ($r-&gt;{type}) {
+			when ( [ qw/package class role/ ] ) {
+				my $Document = $self-&gt;{ppidocuments}-&gt;{$file};
+
+				 # Create the Find object
+  				my $Find = PPI::Find-&gt;new( sub {
+  					if(UNIVERSAL::isa($_[0], &quot;PPI::Statement::Include&quot; ) ) {
+  						my $mod = $_[0]-&gt;module;
+  						if ($_[0]-&gt;type ne &quot;no&quot;
+  						&amp;&amp;  ( $mod eq $pid
+  						    ||  $mod eq $containingpackage )
+  						) {
+  							return 1;
+  						}
+  					}
+  					return 0;
+  				} );
+
+				# Return all matching Elements as a list
+				my @found = $Find-&gt;in( $Document );
+
+				foreach my $f (@found) {
+					push @references, {
+						file =&gt; $file,
+						location =&gt; $f-&gt;line_number,
+						match =&gt; $f-&gt;content,
+						ppidoc =&gt; $Document,
+						ppitok =&gt; $f,
+					}
+				}
+
+			}
+			default {
+				die &quot;Searching for references of type $r-&gt;{type} &quot;.
+					&quot;is not supported&quot;;
+			}
+		}
+	}
+
+	return \@references;
+}</code></pre></div><a name="line_304" /><h2>Search find all module dependencies</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$self              : the self object 
+   $external_only=0   : 1 to only list packages not found in the index 
+   $core_minversion=5 : minimum core version to contain the package </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>{ 
+      package =&gt; [ 
+          references 
+      ] 
+   } </p>
+</blockquote>
+<a name="line_317" /><a name="line_319" /><div class="code"><pre><code class="perl">sub getDependencies {
+	my $self = shift;
+	my $external_only = shift || 0;
+	my $core_minversion = shift || 5;
+	my %pkgs = ();
+
+	foreach my $file ( @{$self-&gt;{files}} ) {
+		my $Document = $self-&gt;{ppidocuments}-&gt;{$file};
+
+		 # Create the Find object
+		my $Find = PPI::Find-&gt;new( sub {
+			if(UNIVERSAL::isa($_[0], &quot;PPI::Statement::Include&quot; ) ) {
+				my $mod = $_[0]-&gt;module;
+				if (
+					#&Acirc;&nbsp;ignore &#39;no&#39; includes
+					$_[0]-&gt;type ne &quot;no&quot;
+				) {
+					return 1;
+				}
+			}
+			return 0;
+		} );
+
+		# Return all matching Elements as a list
+		my @found = $Find-&gt;in( $Document );
+
+		foreach my $f (@found) {
+			my $mod = $f-&gt;module;
+
+			my $frel = Module::CoreList-&gt;first_release($mod) || 0;
+
+			# filter internal modules
+			next if $external_only &amp;&amp; defined($self-&gt;{identifiers}-&gt;{$mod});
+
+			# filter core modules
+			# print &quot;$mod : $frel\n&quot;;
+			next if $frel &gt;= $core_minversion;
+
+			unless ($pkgs{$mod}) {
+				$pkgs{$mod} = [];
+			}
+
+			push @{$pkgs{$mod}}, {
+				file =&gt; $file,
+				line =&gt; $f-&gt;line_number,
+				match =&gt; $f-&gt;content,
+			};
+		}
+	}
+	return \%pkgs;
+}</code></pre></div><a name="line_371" /><h1>Search for identifiers using regular expressions</h1>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$self : a PerlIndex 
+   $expr : a regular expression 
+   $type : undef, or restriction to a type </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>An ARRAYREF to a list of declarations </p>
+</blockquote>
+<a name="line_381" /><div class="code"><pre><code class="perl">sub searchIdentifiers {
+	my $self = shift;
+	my $expr = shift;
+	my $type = shift || &quot;&quot;;
+
+	my @return = ();
+
+	while (defined ($type)) {
+		foreach my $r (@{$self-&gt;{declarations}}) {
+			if( index ($r-&gt;{identifier}, $expr) &gt;= 0
+			&amp;&amp; ($type eq &quot;&quot; || $r-&gt;{type} eq $type)
+			) {
+				push @return, $r;
+			}
+		}
+		$type = shift;
+	}
+
+	return \@return;
+}
+
+1;</code></pre></div></div>
+<div id="footer" class="ui-widget-content ui-widget-header ui-corner-all">Generated using <a href="https://github.com/pkrusche/documenter">Perl Documenter</a> &copy; 2012 Peter Krusche</div>
+</body>
+</html>

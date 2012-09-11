@@ -1,0 +1,269 @@
+<html>
+<head> <title>recursivedocumenter.pl</title>
+<script src="js/jquery.js" ></script>
+<script src="js/jquery-ui.js" ></script>
+
+<script src="js/highlight.pack.js" ></script>
+
+<script src="js/index.js" ></script>
+<script src="js/search.js" ></script>
+<script src="js/documenter.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/github.css" />
+<link rel="stylesheet" type="text/css" href="css/documenter.css" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="feed.rss">
+
+ <script>
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+<div id="toolbar" class="ui-widget-content ui-widget-header ui-corner-all" style="display:none;">
+	<center>
+		<button id="upbutton">Index</button>
+		<button id="indexbutton">Outline</button>&nbsp;
+		<span id="search"></span>
+		<span id="collapseexpand">
+			<button id="collapseall">Collapse Code</button>
+			<button id="expandall">Expand Code</button>
+		</span>
+		<button id="print">Print</button>
+	</center>
+</div>
+<div id="index" class="ui-widget-content ui-corner-all" style="padding: 5px">
+	<noscript><a href="static_index.html">Click here to show the complete source index.</a>
+	</noscript>
+</div>
+<div id="content"><a name="line_1" /><a name="line_4" /><h1>Recursive documentation generator</h1>
+<a name="line_6" /><div class="code"><pre><code class="perl">use strict;
+use warnings;
+use feature &quot;:5.10&quot;;</code></pre></div><a name="line_12" /><strong>## </strong><span class="monospaced"> make sure this script also works when called from somewhere else </span><a name="line_13" /><div class="code"><pre><code class="perl">use FindBin qw($Bin);
+use lib &quot;$Bin&quot;;
+
+use File::Copy;
+use File::Find;
+use File::Spec qw(catfile catdir);
+use Getopt::Long;
+use Cwd;
+use Cwd qw(abs_path);
+use Data::Dumper;
+use List::Util qw(sum);
+use JSON;
+use Scalar::Util qw(looks_like_number);
+use Pod::Usage;</code></pre></div><a name="line_28" /><strong>## </strong><span class="monospaced"> Get the perl executable </span><a name="line_29" /><div class="code"><pre><code class="perl">my $perl_command = $^X;
+$perl_command = qq{&quot;$perl_command&quot;}
+  if $perl_command =~ /\s/;</code></pre></div><a name="line_33" /><strong>## </strong><span class="monospaced"> output parameters </span><a name="line_34" /><div class="code"><pre><code class="perl"># output directory to write to
+our $outputdirectory = &quot;./docs&quot;;
+
+# directory with images and additional source files.
+our $sourcedirectory = &quot;$Bin&quot;;
+
+# the base url for the index RSS file
+my $baseurl = &quot;http://localhost:4000/&quot;;
+
+# true when only printing usage message
+my $usage = 0;
+
+# the output format. Passed to documenter.pl
+our $format = &#39;html&#39;;
+
+# force updates even if files haven&#39;t changed
+our $force = 0;
+
+our @rootdir = ();
+
+GetOptions(
+	&#39;outputdirectory|o=s&#39; =&gt; \$outputdirectory,
+	&#39;sourcedirectory|s=s&#39; =&gt; \$sourcedirectory,
+	&#39;format=s&#39;            =&gt; \$format,
+	&#39;help|h!&#39;             =&gt; \$usage,
+	&#39;ignoredir=s&#39;         =&gt; \@rootdir,
+	&#39;force|f!&#39;			  =&gt; \$force,
+	&#39;baseurl=s&#39;           =&gt; \$baseurl
+);
+@rootdir = split( /,/, join( &#39;,&#39;, @rootdir ) );
+
+unless ($format eq &#39;html&#39; || $format eq &#39;md&#39;) {
+	die &quot;Format must be html or md.&quot;
+}
+
+if ($usage) {
+	print pod2usage( -sections =&gt; &quot;NAME|SYNOPSIS|OPTIONS|DESCRIPTION&quot; );
+	exit 0;
+}
+
+my @directories = ();
+
+if ( scalar @ARGV &lt;= 0 ) {
+	push @directories, &quot;./&quot;;
+}
+
+foreach (@ARGV) {
+	push @directories, $_;
+}
+
+if (!-e $outputdirectory || !-d $outputdirectory || !-w $outputdirectory) {
+	die &quot;Cannot write directory $outputdirectory&quot;;
+} else {
+	print &quot;Writing to $outputdirectory\n&quot;;
+}</code></pre></div><a name="line_90" /><strong>## </strong><span class="monospaced"> ignore output directory </span><a name="line_91" /><div class="code"><pre><code class="perl">push @rootdir, $outputdirectory;
+push @rootdir, File::Spec-&gt;catdir($sourcedirectory, &#39;.git&#39;);
+
+my $ignores_file = File::Spec-&gt;catfile($sourcedirectory, &#39;.docignore&#39;);
+if( -e $ignores_file ) {
+	my $dign;
+	{ local $/ = undef; local *FILE; open FILE, &quot;&lt;&quot;, $ignores_file;
+		$dign = &lt;FILE&gt;; close FILE }
+	my @digns = split /[\r\n]+/, $dign;
+	push @rootdir, File::Spec-&gt;catdir($sourcedirectory, $_) foreach @digns;
+}
+
+for (my $i = 0; $i &lt; scalar @rootdir; $i++) {
+	eval {
+		$rootdir[$i] = abs_path($rootdir[$i]);
+	};
+	if ($@) {
+		print &quot;[W] Directory $rootdir[$i] cannot be ignored because it doesn&#39;t exist.\n$@\n&quot;;
+	}
+}</code></pre></div><a name="line_112" /><strong>## </strong><span class="monospaced"> remove the index file (it&amp;#39;s regenerated every time) </span><a name="line_113" /><div class="code"><pre><code class="perl">unlink (File::Spec-&gt;catfile($outputdirectory, &#39;index.html&#39;));
+
+our $stuff_was_copied = 0;</code></pre></div><a name="line_117" /><strong>## </strong><span class="monospaced"> find all files we can document </span><a name="line_118" /><div class="code"><pre><code class="perl">find( { &#39;wanted&#39; =&gt; \&amp;wanted, no_chdir =&gt; 1, }, @directories );</code></pre></div><a name="line_120" /><h2>Find filter that runs documenter if the file matches things we can use for</h2>
+
+<p>documentation</p>
+<a name="line_123" /><a name="line_125" /><div class="code"><pre><code class="perl">sub wanted {
+	our @rootdir;
+	our $outputdirectory;
+	our $sourcedirectory;
+	our $force;
+	my $documenterpl = File::Spec-&gt;catfile($Bin, &quot;documenter.pl&quot;);
+
+	my $nametopass = $_;
+	my $abs_name = abs_path($nametopass);
+	my $sd_abs_path_ignore = File::Spec-&gt;catdir(
+		abs_path($sourcedirectory), &quot;_&quot;);
+
+	if ($^O eq &#39;MSWin32&#39;) {
+		$sd_abs_path_ignore =~ s/\\/\//g;
+	}
+
+	return if index($abs_name, $sd_abs_path_ignore) == 0;
+
+	foreach my $rd (@rootdir) {
+		if(index($abs_name, $rd) == 0) {
+			return;
+		}
+	}
+
+	# Perl files and Perl Modules
+	if ( $nametopass =~ m/\.p[lm]$/i
+	  || $nametopass =~ m/\.markdown$/i
+	  || $nametopass =~ m/\.md$/i
+	  || $nametopass =~ m/\.html?$/i
+	  || $nametopass =~ m/\.js$/i
+	  || $nametopass =~ m/\.css$/i
+	  || $nametopass =~ m/\.pod$/i
+	  || $nametopass =~ m/README$/i
+	  || $nametopass =~ m/LICENSE$/i
+	  ) {</code></pre></div><a name="line_161" /><strong>## </strong><span class="monospaced"> Check if the source file is newer than the HTML file </span><a name="line_162" /><div class="code"><pre><code class="perl">my $htmlfilename = $nametopass . &quot;.html&quot;;
+		$htmlfilename =~ s/^\.\///;
+        $htmlfilename =~ s/\//_/g;
+        $htmlfilename = File::Spec-&gt;catfile($outputdirectory, $htmlfilename);
+        if (-e $htmlfilename &amp;&amp; !$force) {
+			my @m1 = stat($nametopass);
+			my @m2 = stat($htmlfilename);
+
+			if ( $m2[9] &gt; $m1[9] ) {
+				print &quot;$nametopass hasn&#39;t changed, skipping...\n&quot;;
+				return;
+			} else {
+				print &quot;Updating $_ -&gt; $htmlfilename\n&quot;;
+			}
+        } else {
+				print &quot;Documenting $_ -&gt; $htmlfilename\n&quot;;
+        }
+
+        if ($stuff_was_copied) {
+			system 	$perl_command,
+					$documenterpl,
+					&quot;--format&quot;, $format,
+					&quot;-n&quot;,
+					&quot;--outputdirectory&quot;, $outputdirectory,
+					&quot;--sourcedirectory&quot;, $sourcedirectory,
+					$nametopass;
+        } else {
+			system 	$perl_command,
+					$documenterpl,
+					&quot;--format&quot;, $format,
+					&quot;--outputdirectory&quot;, $outputdirectory,
+					&quot;--sourcedirectory&quot;, $sourcedirectory,
+					$nametopass;
+			$stuff_was_copied = 1;
+        }
+	}
+}</code></pre></div><a name="line_200" /><strong>## </strong><span class="monospaced"> make static index </span><a name="line_201" /><div class="code"><pre><code class="perl">print &quot;Making static index.\n&quot;;
+system 	$perl_command,
+		File::Spec-&gt;catfile($Bin, &#39;staticindex.pl&#39;),
+		File::Spec-&gt;catfile($outputdirectory, &#39;index.json&#39;),
+		$baseurl,
+		$format;</code></pre></div><a name="line_208" /><strong>## </strong><span class="monospaced"> check if we have to create an index file </span><a name="line_209" /><div class="code"><pre><code class="perl">my $indexfile = File::Spec-&gt;catfile($outputdirectory, &quot;index.$format&quot;);
+if(!-e $indexfile) {
+	my @files_to_try = (
+		File::Spec-&gt;catfile($outputdirectory, &quot;README.md.$format&quot;),
+		File::Spec-&gt;catfile($outputdirectory, &quot;README.markdown.$format&quot;),
+		File::Spec-&gt;catfile($outputdirectory, &quot;static_index.html&quot;),
+	);
+
+	foreach my $f (@files_to_try) {
+		if(-e $f) {
+			print &quot;Using $f as the index page.\n&quot;;
+			copy ($f, $indexfile)
+				or die &quot;Cannot copy the index file.&quot;;
+			last;
+		}
+	}
+}</code></pre></div><a name="line_227" /><a name="line_229" /><h1>NAME</h1>
+
+<p>Recursive Documenter : Run Documenter on folders and subfolders</p>
+
+<h1>SYNOPSIS</h1>
+
+<p>recursivedocumenter.pl [options] <dir1> <dir2> &hellip;</p>
+
+<h1>OPTIONS</h1>
+
+<p>&ndash;outputdirectory <dirname> : set an output directory for the
+                              generated HTML files.</p>
+
+<pre><code>                          Default value: &quot;./doc&quot;
+</code></pre>
+
+<p>&ndash;sourcedirectory <dirname> : set an source directory to copy
+                              styles, images, etc. from</p>
+
+<pre><code>                          This directory will default to the
+                             location of documenter.
+</code></pre>
+
+<p>&ndash;ignoredir <dirname>       : add directories to ignore</p>
+
+<p>&ndash;force                    : force updating files even if source
+                              hasn&#39;t changed.</p>
+
+<p>&ndash;format                    : output format (md or html, default is html)</p>
+
+<p>&ndash;baseurl                   : base url for index generation, default is
+                              http://localhost:4000</p>
+
+<h1>DESCRIPTION</h1>
+
+<p>This tool will run the documenter script on all source files in a
+given folder and all subfolders.</p>
+<a name="line_267" /></div>
+<div id="footer" class="ui-widget-content ui-widget-header ui-corner-all">Generated using <a href="https://github.com/pkrusche/documenter">Perl Documenter</a> &copy; 2012 Peter Krusche</div>
+</body>
+</html>

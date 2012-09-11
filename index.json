@@ -1,0 +1,3320 @@
+{
+   "value" : {
+      "link" : "index.html",
+      "location" : 0,
+      "style" : "h1",
+      "path" : "Index/index",
+      "anchor" : "#",
+      "level" : 1,
+      "linear_index_pos" : "1",
+      "title" : "Documentation Index",
+      "type" : "book"
+   },
+   "name" : "documenter_root",
+   "children" : [
+      {
+         "value" : {
+            "link" : "documenter.pl.html",
+            "location" : 0,
+            "style" : "h1",
+            "path" : "Index/documenter.pl",
+            "anchor" : "#",
+            "level" : 2,
+            "linear_index_pos" : "1.1",
+            "title" : "documenter.pl",
+            "type" : "file"
+         },
+         "name" : "documenter.pl",
+         "children" : [
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_162",
+                  "options" : "show_type",
+                  "location" : 162,
+                  "path" : "Index/documenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_162",
+                  "linear_index_pos" : "1.1.1",
+                  "documentation" : "=head2 File parsing and index generation\n\n=cut\n\n## index item formatting options\n",
+                  "title" : "%index_options",
+                  "type" : "global"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_176",
+                  "options" : "show_type",
+                  "location" : 176,
+                  "path" : "Index/documenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_176",
+                  "linear_index_pos" : "1.1.2",
+                  "documentation" : "## index of line numbers\n",
+                  "title" : "@line_index",
+                  "type" : "global"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_179",
+                  "options" : "show_type",
+                  "location" : 179,
+                  "path" : "Index/documenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_179",
+                  "linear_index_pos" : "1.1.3",
+                  "documentation" : "## global print options, set via comment markup\n",
+                  "title" : "%doc_options",
+                  "type" : "global"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_198",
+                  "options" : "show_type",
+                  "location" : 193,
+                  "path" : "Index/documenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_198",
+                  "linear_index_pos" : "1.1.4",
+                  "documentation" : "# the HTML file needs to go into the same folder as all the other HTML code.\n",
+                  "title" : "$htmlfilename",
+                  "type" : "global"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_258",
+                  "options" : "show_type",
+                  "location" : 258,
+                  "path" : "Index/documenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_258",
+                  "linear_index_pos" : "1.1.5",
+                  "documentation" : "## set up parsing\n",
+                  "title" : "$documentation",
+                  "type" : "global"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_352",
+                  "options" : "show_type",
+                  "location" : 353,
+                  "path" : "Index/documenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_352",
+                  "linear_index_pos" : "1.1.6",
+                  "documentation" : "=head2 Handler function to print source code\n\n Parameters:\n $current : the perl code\n $currentline : starting source line number\n\n=cut\n",
+                  "title" : "perl_code_handler",
+                  "type" : "sub"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_385",
+                  "options" : "show_type",
+                  "location" : 386,
+                  "path" : "Index/documenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_385",
+                  "linear_index_pos" : "1.1.7",
+                  "documentation" : "=head2 Handler function to print and format PerlPod code\n\n Parameters:\n $current : the code\n\n=cut\n",
+                  "title" : "pod_handler",
+                  "type" : "sub"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_399",
+                  "options" : "show_type",
+                  "location" : 400,
+                  "path" : "Index/documenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_399",
+                  "linear_index_pos" : "1.1.8",
+                  "documentation" : "=head2 Handler function to print and format comments\n\nParameters:\n$current : the code\n=cut\n",
+                  "title" : "comment_handler",
+                  "type" : "sub"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_429",
+                  "options" : "show_type",
+                  "location" : 430,
+                  "path" : "Index/documenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_429",
+                  "linear_index_pos" : "1.1.9",
+                  "documentation" : "=head2 get the line anchor closest to the given line\n\nParameters:\n$lineno : the line number\n\nReturns:\nAn anchor that is close to that line number.\n\n=cut\n",
+                  "title" : "get_closest_line_anchor",
+                  "type" : "sub"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_463",
+                  "options" : "show_type",
+                  "location" : 464,
+                  "path" : "Index/documenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_463",
+                  "linear_index_pos" : "1.1.10",
+                  "documentation" : "=head2 Function to add location info to index items.\n\nParameters:\n$item : an index tree item\n\nReturns:\nA string with a formatted, hyperlinked item.\n\n=cut\n",
+                  "title" : "index_item_info",
+                  "type" : "sub"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_486",
+                  "options" : "show_type",
+                  "location" : 487,
+                  "path" : "Index/documenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_486",
+                  "linear_index_pos" : "1.1.11",
+                  "documentation" : "=head2 Function to create line anchors.\n\n Parameters:\n $line : the current line\n\n=cut\n",
+                  "title" : "set_current_line",
+                  "type" : "sub"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_4",
+                  "options" : "",
+                  "location" : 3,
+                  "path" : "Index/documenter.pl",
+                  "index_path" : null,
+                  "level" : 3,
+                  "anchor" : "#line_4",
+                  "linear_index_pos" : "1.1.12",
+                  "title" : "Literate Programming Automatic Documenter",
+                  "type" : "h1"
+               },
+               "name" : "",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "documenter.pl.html#line_42",
+                        "options" : "",
+                        "location" : 41,
+                        "path" : "Index/documenter.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_42",
+                        "linear_index_pos" : "1.1.12.1",
+                        "title" : "Option parsing",
+                        "type" : "h2"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "documenter.pl.html#line_158",
+                        "options" : "",
+                        "location" : 157,
+                        "path" : "Index/documenter.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_158",
+                        "linear_index_pos" : "1.1.12.2",
+                        "title" : "File parsing and index generation",
+                        "type" : "h2"
+                     },
+                     "name" : "",
+                     "children" : []
+                  }
+               ]
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_339",
+                  "options" : "",
+                  "location" : 340,
+                  "path" : "Index/documenter.pl",
+                  "index_path" : null,
+                  "level" : 3,
+                  "anchor" : "#line_339",
+                  "linear_index_pos" : "1.1.13",
+                  "title" : "Helper functions",
+                  "type" : "h1"
+               },
+               "name" : "",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "documenter.pl.html#line_344",
+                        "options" : "",
+                        "location" : 345,
+                        "path" : "Index/documenter.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_344",
+                        "linear_index_pos" : "1.1.13.1",
+                        "title" : "Handler function to print source code",
+                        "type" : "h2"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "documenter.pl.html#line_380",
+                        "options" : "",
+                        "location" : 379,
+                        "path" : "Index/documenter.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_380",
+                        "linear_index_pos" : "1.1.13.2",
+                        "title" : "Handler function to print and format PerlPod code",
+                        "type" : "h2"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "documenter.pl.html#line_395",
+                        "options" : "",
+                        "location" : 394,
+                        "path" : "Index/documenter.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_395",
+                        "linear_index_pos" : "1.1.13.3",
+                        "title" : "Handler function to print and format comments",
+                        "type" : "h2"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "documenter.pl.html#line_421",
+                        "options" : "",
+                        "location" : 420,
+                        "path" : "Index/documenter.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_421",
+                        "linear_index_pos" : "1.1.13.4",
+                        "title" : "get the line anchor closest to the given line",
+                        "type" : "h2"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "documenter.pl.html#line_455",
+                        "options" : "",
+                        "location" : 454,
+                        "path" : "Index/documenter.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_455",
+                        "linear_index_pos" : "1.1.13.5",
+                        "title" : "Function to add location info to index items.",
+                        "type" : "h2"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "documenter.pl.html#line_481",
+                        "options" : "",
+                        "location" : 480,
+                        "path" : "Index/documenter.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_481",
+                        "linear_index_pos" : "1.1.13.6",
+                        "title" : "Function to create line anchors.",
+                        "type" : "h2"
+                     },
+                     "name" : "",
+                     "children" : []
+                  }
+               ]
+            },
+            {
+               "value" : {
+                  "link" : "documenter.pl.html#line_497",
+                  "options" : "",
+                  "location" : 498,
+                  "path" : "Index/documenter.pl",
+                  "index_path" : null,
+                  "level" : 3,
+                  "anchor" : "#line_497",
+                  "linear_index_pos" : "1.1.14",
+                  "title" : "Tool usage",
+                  "type" : "h1"
+               },
+               "name" : "",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "documenter.pl.html#line_499",
+                        "options" : "",
+                        "location" : 500,
+                        "path" : "Index/documenter.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_499",
+                        "linear_index_pos" : "1.1.14.1",
+                        "title" : "Commenting guidelines",
+                        "type" : "h2"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "documenter.pl.html#line_499",
+                        "options" : "",
+                        "location" : 531,
+                        "path" : "Index/documenter.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_499",
+                        "linear_index_pos" : "1.1.14.2",
+                        "title" : "Command line usage",
+                        "type" : "h2"
+                     },
+                     "name" : "",
+                     "children" : []
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "value" : {
+            "link" : "LICENSE.html",
+            "location" : 0,
+            "style" : "h1",
+            "path" : "Index/LICENSE",
+            "anchor" : "#",
+            "level" : 2,
+            "linear_index_pos" : "1.2",
+            "type" : "file",
+            "title" : "LICENSE"
+         },
+         "name" : "LICENSE",
+         "children" : []
+      },
+      {
+         "value" : {
+            "link" : "perlsearch.pl.html",
+            "location" : 0,
+            "style" : "h1",
+            "path" : "Index/perlsearch.pl",
+            "anchor" : "#",
+            "level" : 2,
+            "linear_index_pos" : "1.3",
+            "title" : "perlsearch.pl",
+            "type" : "file"
+         },
+         "name" : "perlsearch.pl",
+         "children" : [
+            {
+               "value" : {
+                  "link" : "perlsearch.pl.html#line_4",
+                  "options" : "",
+                  "location" : 3,
+                  "path" : "Index/perlsearch.pl",
+                  "index_path" : null,
+                  "level" : 3,
+                  "anchor" : "#line_4",
+                  "linear_index_pos" : "1.3.1",
+                  "title" : "Perl search tool",
+                  "type" : "h1"
+               },
+               "name" : "",
+               "children" : []
+            }
+         ]
+      },
+      {
+         "value" : {
+            "link" : "README.md.html",
+            "location" : 0,
+            "style" : "h1",
+            "path" : "Index/README.md",
+            "anchor" : "#",
+            "level" : 2,
+            "linear_index_pos" : "1.4",
+            "type" : "file",
+            "title" : "README.md"
+         },
+         "name" : "README.md",
+         "children" : []
+      },
+      {
+         "value" : {
+            "link" : "recursivedocumenter.pl.html",
+            "location" : 0,
+            "style" : "h1",
+            "path" : "Index/recursivedocumenter.pl",
+            "anchor" : "#",
+            "level" : 2,
+            "linear_index_pos" : "1.5",
+            "title" : "recursivedocumenter.pl",
+            "type" : "file"
+         },
+         "name" : "recursivedocumenter.pl",
+         "children" : [
+            {
+               "value" : {
+                  "link" : "recursivedocumenter.pl.html#line_34",
+                  "options" : "show_type",
+                  "location" : 34,
+                  "path" : "Index/recursivedocumenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_34",
+                  "linear_index_pos" : "1.5.1",
+                  "documentation" : "## output parameters\n\n# output directory to write to\n",
+                  "title" : "$outputdirectory",
+                  "type" : "global"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "recursivedocumenter.pl.html#line_34",
+                  "options" : "show_type",
+                  "location" : 37,
+                  "path" : "Index/recursivedocumenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_34",
+                  "linear_index_pos" : "1.5.2",
+                  "documentation" : "# directory with images and additional source files.\n",
+                  "title" : "$sourcedirectory",
+                  "type" : "global"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "recursivedocumenter.pl.html#line_34",
+                  "options" : "show_type",
+                  "location" : 46,
+                  "path" : "Index/recursivedocumenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_34",
+                  "linear_index_pos" : "1.5.3",
+                  "documentation" : "# the output format. Passed to documenter.pl\n",
+                  "title" : "$format",
+                  "type" : "global"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "recursivedocumenter.pl.html#line_34",
+                  "options" : "show_type",
+                  "location" : 49,
+                  "path" : "Index/recursivedocumenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_34",
+                  "linear_index_pos" : "1.5.4",
+                  "documentation" : "# force updates even if files haven't changed\n",
+                  "title" : "$force",
+                  "type" : "global"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "recursivedocumenter.pl.html#line_34",
+                  "options" : "show_type",
+                  "location" : 51,
+                  "path" : "Index/recursivedocumenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_34",
+                  "linear_index_pos" : "1.5.5",
+                  "documentation" : "",
+                  "title" : "@rootdir",
+                  "type" : "global"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "recursivedocumenter.pl.html#line_113",
+                  "options" : "show_type",
+                  "location" : 114,
+                  "path" : "Index/recursivedocumenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_113",
+                  "linear_index_pos" : "1.5.6",
+                  "documentation" : "",
+                  "title" : "$stuff_was_copied",
+                  "type" : "global"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "recursivedocumenter.pl.html#line_123",
+                  "options" : "show_type",
+                  "location" : 124,
+                  "path" : "Index/recursivedocumenter.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_123",
+                  "linear_index_pos" : "1.5.7",
+                  "documentation" : "=head2 Find filter that runs documenter if the file matches things we can use for\ndocumentation\n\n=cut\n",
+                  "title" : "wanted",
+                  "type" : "sub"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "recursivedocumenter.pl.html#line_4",
+                  "options" : "",
+                  "location" : 3,
+                  "path" : "Index/recursivedocumenter.pl",
+                  "index_path" : null,
+                  "level" : 3,
+                  "anchor" : "#line_4",
+                  "linear_index_pos" : "1.5.8",
+                  "title" : "Recursive documentation generator",
+                  "type" : "h1"
+               },
+               "name" : "",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "recursivedocumenter.pl.html#line_118",
+                        "options" : "",
+                        "location" : 119,
+                        "path" : "Index/recursivedocumenter.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_118",
+                        "linear_index_pos" : "1.5.8.1",
+                        "title" : "Find filter that runs documenter if the file matches things we can use for",
+                        "type" : "h2"
+                     },
+                     "name" : "",
+                     "children" : []
+                  }
+               ]
+            },
+            {
+               "value" : {
+                  "link" : "recursivedocumenter.pl.html#line_229",
+                  "options" : "",
+                  "location" : 230,
+                  "path" : "Index/recursivedocumenter.pl",
+                  "index_path" : null,
+                  "level" : 3,
+                  "anchor" : "#line_229",
+                  "linear_index_pos" : "1.5.9",
+                  "title" : "NAME",
+                  "type" : "h1"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "recursivedocumenter.pl.html#line_229",
+                  "options" : "",
+                  "location" : 234,
+                  "path" : "Index/recursivedocumenter.pl",
+                  "index_path" : null,
+                  "level" : 3,
+                  "anchor" : "#line_229",
+                  "linear_index_pos" : "1.5.10",
+                  "title" : "SYNOPSIS",
+                  "type" : "h1"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "recursivedocumenter.pl.html#line_229",
+                  "options" : "",
+                  "location" : 238,
+                  "path" : "Index/recursivedocumenter.pl",
+                  "index_path" : null,
+                  "level" : 3,
+                  "anchor" : "#line_229",
+                  "linear_index_pos" : "1.5.11",
+                  "title" : "OPTIONS",
+                  "type" : "h1"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "recursivedocumenter.pl.html#line_267",
+                  "options" : "",
+                  "location" : 261,
+                  "path" : "Index/recursivedocumenter.pl",
+                  "index_path" : null,
+                  "level" : 3,
+                  "anchor" : "#line_267",
+                  "linear_index_pos" : "1.5.12",
+                  "title" : "DESCRIPTION",
+                  "type" : "h1"
+               },
+               "name" : "",
+               "children" : []
+            }
+         ]
+      },
+      {
+         "value" : {
+            "link" : "staticindex.pl.html",
+            "location" : 0,
+            "style" : "h1",
+            "path" : "Index/staticindex.pl",
+            "anchor" : "#",
+            "level" : 2,
+            "linear_index_pos" : "1.6",
+            "type" : "file",
+            "title" : "staticindex.pl"
+         },
+         "name" : "staticindex.pl",
+         "children" : [
+            {
+               "value" : {
+                  "link" : "staticindex.pl.html#line_54",
+                  "location" : 49,
+                  "options" : "show_type",
+                  "path" : "Index/staticindex.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_54",
+                  "linear_index_pos" : "1.6.1",
+                  "documentation" : "",
+                  "type" : "global",
+                  "title" : "@linear_index"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "staticindex.pl.html#line_65",
+                  "location" : 66,
+                  "options" : "show_type",
+                  "path" : "Index/staticindex.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_65",
+                  "linear_index_pos" : "1.6.2",
+                  "documentation" : "=head2 Sorting comparator by index id\n\nUsed for sort, compares two index ids:\n \n 1.2.3 < 1.2.4\n 1.2 < 1.2.4\n 1.2.3 = 1.2.3\n 2.0 > 1.9.9\n 1.11 > 1.1\n etc.\n\n=cut\n",
+                  "type" : "sub",
+                  "title" : "by_idx"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "staticindex.pl.html#line_111",
+                  "location" : 112,
+                  "options" : "show_type",
+                  "path" : "Index/staticindex.pl",
+                  "ppinode" : null,
+                  "level" : 3,
+                  "anchor" : "#line_111",
+                  "linear_index_pos" : "1.6.3",
+                  "documentation" : "=head2 Recursively process the index tree\n\n Parameters:\n $node \t\t: the current node (hash with value and children elements)\n $path \t\t: the current path (used in recursion)\n $level\t\t: the current depth\n $index_pos\t: the parent's index position\n\n=cut\n",
+                  "type" : "sub",
+                  "title" : "recurse"
+               },
+               "name" : "",
+               "children" : []
+            },
+            {
+               "value" : {
+                  "link" : "staticindex.pl.html#line_1",
+                  "location" : 2,
+                  "options" : "",
+                  "path" : "Index/staticindex.pl",
+                  "index_path" : null,
+                  "level" : 3,
+                  "anchor" : "#line_1",
+                  "linear_index_pos" : "1.6.4",
+                  "type" : "h1",
+                  "title" : "Static Index Generator"
+               },
+               "name" : "",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "staticindex.pl.html#line_54",
+                        "location" : 53,
+                        "options" : "",
+                        "path" : "Index/staticindex.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_54",
+                        "linear_index_pos" : "1.6.4.1",
+                        "type" : "h2",
+                        "title" : "Sorting comparator by index id"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "staticindex.pl.html#line_103",
+                        "location" : 102,
+                        "options" : "",
+                        "path" : "Index/staticindex.pl",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_103",
+                        "linear_index_pos" : "1.6.4.2",
+                        "type" : "h2",
+                        "title" : "Recursively process the index tree"
+                     },
+                     "name" : "",
+                     "children" : []
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "value" : {
+            "level" : 2,
+            "linear_index_pos" : "1.7",
+            "style" : "h1",
+            "type" : "folder",
+            "title" : "Test Inputs",
+            "path" : "Index/"
+         },
+         "name" : "Test Inputs",
+         "children" : [
+            {
+               "value" : {
+                  "link" : "Test Inputs_MooseClass.pm.html",
+                  "location" : 0,
+                  "style" : "h1",
+                  "path" : "Index/Test Inputs_MooseClass.pm",
+                  "anchor" : "#",
+                  "level" : 3,
+                  "linear_index_pos" : "1.7.1",
+                  "title" : "MooseClass.pm",
+                  "type" : "file"
+               },
+               "name" : "MooseClass.pm",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "Test Inputs_MooseClass.pm.html#line_10",
+                        "options" : "show_type",
+                        "location" : 11,
+                        "path" : "Index/Test Inputs_MooseClass.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_10",
+                        "linear_index_pos" : "1.7.1.1",
+                        "documentation" : "=head1 Some class doing stuff in Perl\n\nIn this class, we do some crazy Moose stuff.\n\n=cut\n",
+                        "title" : "MooseClass",
+                        "type" : "class"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Test Inputs_MooseClass.pm.html#line_36",
+                              "options" : "show_type",
+                              "location" : 36,
+                              "path" : "Index/Test Inputs_MooseClass.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_36",
+                              "linear_index_pos" : "1.7.1.1.1",
+                              "documentation" : "=head2 This method does cool things.\n\nB<Here's some Moose trivia:>\n\nRemember to always keep the method declaration in one line, \nlike this:\n \n method some_method(Int $i) { ...\n\nNEVER MOVE THE OPENING BRACKET OR PARAMETERS TO THE NEXT LINE.\n\n method some_method(Int $i) \n { ...\n\nOtherwise, bad things happen in Moose-land.\n\n Parameters:\n $i : A number\n\n Returns:\n That number $i, incremented.\n\n=cut\n",
+                              "title" : "some_method",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Test Inputs_MooseClass.pm.html#line_65",
+                              "options" : "show_type",
+                              "location" : 60,
+                              "path" : "Index/Test Inputs_MooseClass.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_65",
+                              "linear_index_pos" : "1.7.1.1.2",
+                              "documentation" : "=head2 Hiding Source Code\n\nSometimes, we might not want to show all code in the documentation.\nThis is achieved using the \n\n ## show source \n\nand \n\n ## hide source \n\ncomments.\n\n=cut\n",
+                              "title" : "not_necessary_to_show_code",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Test Inputs_MooseClass.pm.html#line_67",
+                              "options" : "show_type",
+                              "location" : 67,
+                              "path" : "Index/Test Inputs_MooseClass.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_67",
+                              "linear_index_pos" : "1.7.1.1.3",
+                              "documentation" : "## show source\n\n\t## this method is shown including source\n",
+                              "title" : "shown",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  },
+                  {
+                     "value" : {
+                        "link" : "Test Inputs_MooseClass.pm.html#line_6",
+                        "options" : "",
+                        "location" : 5,
+                        "path" : "Index/Test Inputs_MooseClass.pm",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_6",
+                        "linear_index_pos" : "1.7.1.2",
+                        "title" : "Some class doing stuff in Perl",
+                        "type" : "h1"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Test Inputs_MooseClass.pm.html#line_12",
+                              "options" : "",
+                              "location" : 13,
+                              "path" : "Index/Test Inputs_MooseClass.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_12",
+                              "linear_index_pos" : "1.7.1.2.1",
+                              "title" : "This method does cool things.",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Test Inputs_MooseClass.pm.html#line_44",
+                              "options" : "",
+                              "location" : 45,
+                              "path" : "Index/Test Inputs_MooseClass.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_44",
+                              "linear_index_pos" : "1.7.1.2.2",
+                              "title" : "Hiding Source Code",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "value" : {
+            "level" : 2,
+            "linear_index_pos" : "1.8",
+            "style" : "h1",
+            "title" : "Tools",
+            "type" : "folder",
+            "path" : "Index/"
+         },
+         "name" : "Tools",
+         "children" : [
+            {
+               "value" : {
+                  "link" : "Tools_CommentSpecials.pm.html",
+                  "location" : 0,
+                  "style" : "h1",
+                  "path" : "Index/Tools_CommentSpecials.pm",
+                  "anchor" : "#",
+                  "level" : 3,
+                  "linear_index_pos" : "1.8.1",
+                  "type" : "file",
+                  "title" : "CommentSpecials.pm"
+               },
+               "name" : "CommentSpecials.pm",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "Tools_CommentSpecials.pm.html#line_6",
+                        "location" : 6,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_CommentSpecials.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_6",
+                        "linear_index_pos" : "1.8.1.1",
+                        "documentation" : "=head1 Process Special Comments within Markdown/Pod blocks\n\n=cut\n",
+                        "type" : "package",
+                        "title" : "Tools::CommentSpecials"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_CommentSpecials.pm.html#line_24",
+                              "location" : 25,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_CommentSpecials.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_24",
+                              "linear_index_pos" : "1.8.1.1.1",
+                              "documentation" : "=head2 Process special bits of markup\n\n Parameters:\n $md     : the markdown code\n\n Returns: \n processed markdown.\n\n=cut\n",
+                              "type" : "sub",
+                              "title" : "markdown_specials"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_CommentSpecials.pm.html#line_6",
+                        "location" : 9,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_CommentSpecials.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_6",
+                        "linear_index_pos" : "1.8.1.2",
+                        "documentation" : "",
+                        "type" : "global",
+                        "title" : "@ISA"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_CommentSpecials.pm.html#line_16",
+                        "location" : 12,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_CommentSpecials.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_16",
+                        "linear_index_pos" : "1.8.1.3",
+                        "documentation" : "",
+                        "type" : "global",
+                        "title" : "@EXPORT_OK"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_CommentSpecials.pm.html#line_4",
+                        "location" : 3,
+                        "options" : "",
+                        "path" : "Index/Tools_CommentSpecials.pm",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_4",
+                        "linear_index_pos" : "1.8.1.4",
+                        "type" : "h1",
+                        "title" : "Process Special Comments within Markdown/Pod blocks"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_CommentSpecials.pm.html#line_16",
+                              "location" : 15,
+                              "options" : "",
+                              "path" : "Index/Tools_CommentSpecials.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_16",
+                              "linear_index_pos" : "1.8.1.4.1",
+                              "type" : "h2",
+                              "title" : "Process special bits of markup"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "value" : {
+                  "link" : "Tools_NamedTree.pm.html",
+                  "location" : 0,
+                  "style" : "h1",
+                  "path" : "Index/Tools_NamedTree.pm",
+                  "anchor" : "#",
+                  "level" : 3,
+                  "linear_index_pos" : "1.8.2",
+                  "title" : "NamedTree.pm",
+                  "type" : "file"
+               },
+               "name" : "NamedTree.pm",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "Tools_NamedTree.pm.html#line_9",
+                        "options" : "show_type",
+                        "location" : 9,
+                        "path" : "Index/Tools_NamedTree.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_9",
+                        "linear_index_pos" : "1.8.2.1",
+                        "documentation" : "=head1 Tree with named nodes\n\nExtends the standard tree class to have named nodes\n\n=cut\n",
+                        "title" : "Tools::NamedTree",
+                        "type" : "class"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_NamedTree.pm.html#line_16",
+                              "options" : "show_type",
+                              "location" : 15,
+                              "path" : "Index/Tools_NamedTree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_16",
+                              "linear_index_pos" : "1.8.2.1.1",
+                              "documentation" : "\t# name of this node\n",
+                              "title" : "'name'",
+                              "type" : "has"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_NamedTree.pm.html#line_31",
+                              "options" : "show_type",
+                              "location" : 32,
+                              "path" : "Index/Tools_NamedTree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_31",
+                              "linear_index_pos" : "1.8.2.1.2",
+                              "documentation" : "=head2 Check if a named path exists in this tree\n\n Parameters:\n $path : an array of path elements. the first element is compared\n         to $self->{name}, the following ones to the children\n \n Returns: \n The NamedTree corresponding to the path, or undef if no such tree was found\n\n=cut\t\n",
+                              "title" : "has_path",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_NamedTree.pm.html#line_63",
+                              "options" : "show_type",
+                              "location" : 63,
+                              "path" : "Index/Tools_NamedTree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_63",
+                              "linear_index_pos" : "1.8.2.1.3",
+                              "documentation" : "=head2 Make a child node with a given path (unless it already exists)\n\n Parameters: \n $path : an array of path elements. the first element is compared\n         to $self->{name}, the following ones to the children\n $value : a value to append to the new child\n \n Returns: \n The NamedTree corresponding to the path\n \n=cut\n",
+                              "title" : "make_path",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_NamedTree.pm.html#line_99",
+                              "options" : "show_type",
+                              "location" : 99,
+                              "path" : "Index/Tools_NamedTree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_99",
+                              "linear_index_pos" : "1.8.2.1.4",
+                              "documentation" : "=head2 Convert tree to JSON-compatible tree.\n\n Returns:\n untyped, JSON-compatible tree (removing the parent links)\n=cut\n",
+                              "title" : "TO_JSON",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_NamedTree.pm.html#line_113",
+                              "options" : "show_type",
+                              "location" : 113,
+                              "path" : "Index/Tools_NamedTree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_113",
+                              "linear_index_pos" : "1.8.2.1.5",
+                              "documentation" : "=head2 restore parent links and blessings after serializing to JSON\n\n Parameters:\n $hash : JSON-compatible hash (see TO_JSON)\n\n Returns:\n $self\n=cut\n",
+                              "title" : "FROM_JSON",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_NamedTree.pm.html#line_5",
+                        "options" : "",
+                        "location" : 4,
+                        "path" : "Index/Tools_NamedTree.pm",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_5",
+                        "linear_index_pos" : "1.8.2.2",
+                        "title" : "Tree with named nodes",
+                        "type" : "h1"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_NamedTree.pm.html#line_22",
+                              "options" : "",
+                              "location" : 21,
+                              "path" : "Index/Tools_NamedTree.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_22",
+                              "linear_index_pos" : "1.8.2.2.1",
+                              "title" : "Check if a named path exists in this tree",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_NamedTree.pm.html#line_53",
+                              "options" : "",
+                              "location" : 52,
+                              "path" : "Index/Tools_NamedTree.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_53",
+                              "linear_index_pos" : "1.8.2.2.2",
+                              "title" : "Make a child node with a given path (unless it already exists)",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_NamedTree.pm.html#line_95",
+                              "options" : "",
+                              "location" : 94,
+                              "path" : "Index/Tools_NamedTree.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_95",
+                              "linear_index_pos" : "1.8.2.2.3",
+                              "title" : "Convert tree to JSON-compatible tree.",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_NamedTree.pm.html#line_106",
+                              "options" : "",
+                              "location" : 105,
+                              "path" : "Index/Tools_NamedTree.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_106",
+                              "linear_index_pos" : "1.8.2.2.4",
+                              "title" : "restore parent links and blessings after serializing to JSON",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "value" : {
+                  "link" : "Tools_Output.pm.html",
+                  "location" : 0,
+                  "style" : "h1",
+                  "path" : "Index/Tools_Output.pm",
+                  "anchor" : "#",
+                  "level" : 3,
+                  "linear_index_pos" : "1.8.3",
+                  "type" : "file",
+                  "title" : "Output.pm"
+               },
+               "name" : "Output.pm",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "Tools_Output.pm.html#line_10",
+                        "location" : 11,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_Output.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_10",
+                        "linear_index_pos" : "1.8.3.1",
+                        "documentation" : "=head1 Abstraction class for outputting pretty-printed stuff\n\n Default implementation returns markdown-style things.\n\n=cut\n",
+                        "type" : "class",
+                        "title" : "Tools::Output"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_19",
+                              "location" : 19,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_19",
+                              "linear_index_pos" : "1.8.3.1.1",
+                              "documentation" : "\t## The resulting text\n",
+                              "type" : "has",
+                              "title" : "'result'"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_30",
+                              "location" : 30,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_30",
+                              "linear_index_pos" : "1.8.3.1.2",
+                              "documentation" : "=head2 Append text and other things to output\n\n=cut\n\n\t## append text\n",
+                              "type" : "method",
+                              "title" : "t"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_35",
+                              "location" : 35,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_35",
+                              "linear_index_pos" : "1.8.3.1.3",
+                              "documentation" : "\t## append escaped text\n",
+                              "type" : "method",
+                              "title" : "xt"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_40",
+                              "location" : 40,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_40",
+                              "linear_index_pos" : "1.8.3.1.4",
+                              "documentation" : "\t## append a hrule\n",
+                              "type" : "method",
+                              "title" : "hr"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_45",
+                              "location" : 45,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_45",
+                              "linear_index_pos" : "1.8.3.1.5",
+                              "documentation" : "    ## append a line break\n",
+                              "type" : "method",
+                              "title" : "br"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_50",
+                              "location" : 50,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_50",
+                              "linear_index_pos" : "1.8.3.1.6",
+                              "documentation" : "    ## append a par\n",
+                              "type" : "method",
+                              "title" : "p"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_61",
+                              "location" : 61,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_61",
+                              "linear_index_pos" : "1.8.3.1.7",
+                              "documentation" : "=head2 Decorators\n\nDecorator functions add markup to the text passed and return the result.\n\n=cut\n\n\t## headings\n",
+                              "type" : "method",
+                              "title" : "h"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_75",
+                              "location" : 75,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_75",
+                              "linear_index_pos" : "1.8.3.1.8",
+                              "documentation" : "\t## boldface\n",
+                              "type" : "method",
+                              "title" : "b"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_80",
+                              "location" : 80,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_80",
+                              "linear_index_pos" : "1.8.3.1.9",
+                              "documentation" : "\t## italic/emph\n",
+                              "type" : "method",
+                              "title" : "i"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_85",
+                              "location" : 85,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_85",
+                              "linear_index_pos" : "1.8.3.1.10",
+                              "documentation" : "\t##ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ tt font\n",
+                              "type" : "method",
+                              "title" : "tt"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_90",
+                              "location" : 90,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_90",
+                              "linear_index_pos" : "1.8.3.1.11",
+                              "documentation" : "\t## escape text\n",
+                              "type" : "method",
+                              "title" : "x"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_110",
+                              "location" : 110,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_110",
+                              "linear_index_pos" : "1.8.3.1.12",
+                              "documentation" : "\t## make an anchor. Markdown doesn't do that.\n",
+                              "type" : "method",
+                              "title" : "a"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_115",
+                              "location" : 115,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_115",
+                              "linear_index_pos" : "1.8.3.1.13",
+                              "documentation" : "\t## make a link.\n",
+                              "type" : "method",
+                              "title" : "l"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_120",
+                              "location" : 120,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_120",
+                              "linear_index_pos" : "1.8.3.1.14",
+                              "documentation" : "\t## assign some style (MD: does nothing)\n",
+                              "type" : "method",
+                              "title" : "style"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_134",
+                              "location" : 135,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_134",
+                              "linear_index_pos" : "1.8.3.1.15",
+                              "documentation" : "=head2 Pretty-print code\n\n(we use github-style rather than <code> type things)\n\n Parameters:\n $code : the code\n $type : the type of code (perl/pod/md...)\n $startline: the starting line number\n\n=cut\n",
+                              "type" : "method",
+                              "title" : "code"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_Output.pm.html#line_6",
+                        "location" : 5,
+                        "options" : "",
+                        "path" : "Index/Tools_Output.pm",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_6",
+                        "linear_index_pos" : "1.8.3.2",
+                        "type" : "h1",
+                        "title" : "Abstraction class for outputting pretty-printed stuff"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_26",
+                              "location" : 25,
+                              "options" : "",
+                              "path" : "Index/Tools_Output.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_26",
+                              "linear_index_pos" : "1.8.3.2.1",
+                              "type" : "h2",
+                              "title" : "Append text and other things to output"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_55",
+                              "location" : 54,
+                              "options" : "",
+                              "path" : "Index/Tools_Output.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_55",
+                              "linear_index_pos" : "1.8.3.2.2",
+                              "type" : "h2",
+                              "title" : "Decorators"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output.pm.html#line_125",
+                              "location" : 124,
+                              "options" : "",
+                              "path" : "Index/Tools_Output.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_125",
+                              "linear_index_pos" : "1.8.3.2.3",
+                              "type" : "h2",
+                              "title" : "Pretty-print code"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "value" : {
+                  "link" : "Tools_PerlIndex.pm.html",
+                  "location" : 0,
+                  "style" : "h1",
+                  "path" : "Index/Tools_PerlIndex.pm",
+                  "anchor" : "#",
+                  "level" : 3,
+                  "linear_index_pos" : "1.8.4",
+                  "title" : "PerlIndex.pm",
+                  "type" : "file"
+               },
+               "name" : "PerlIndex.pm",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlIndex.pm.html#line_7",
+                        "options" : "show_type",
+                        "location" : 7,
+                        "path" : "Index/Tools_PerlIndex.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_7",
+                        "linear_index_pos" : "1.8.4.1",
+                        "documentation" : "=head1 Perl Library Indexer\n\nCreate an index of perl files that allows retrieval of declarations\nand references to these.\n\n=cut\n",
+                        "title" : "Tools::PerlIndex",
+                        "type" : "package"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlIndex.pm.html#line_31",
+                              "options" : "show_type",
+                              "location" : 31,
+                              "path" : "Index/Tools_PerlIndex.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_31",
+                              "linear_index_pos" : "1.8.4.1.1",
+                              "documentation" : "=head1 Constructor\n \n Parse a directory of perl modules into an index.\n\n=cut\n",
+                              "title" : "new",
+                              "type" : "sub"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlIndex.pm.html#line_177",
+                              "options" : "show_type",
+                              "location" : 177,
+                              "path" : "Index/Tools_PerlIndex.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_177",
+                              "linear_index_pos" : "1.8.4.1.2",
+                              "documentation" : "=head1 Split a perl identifier name into a path, a file name and a declaration \nname\n\n Parameters: \n $source : the identifier\n $mustexist : 1 if the identifier must exist\n \n Returns: \n a declaration record:\n {\n \tfile => <filename>,\n \tlocation => line number,\n \t\n }\n\n=cut\n",
+                              "title" : "splitPath",
+                              "type" : "sub"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlIndex.pm.html#line_239",
+                              "options" : "show_type",
+                              "location" : 239,
+                              "path" : "Index/Tools_PerlIndex.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_239",
+                              "linear_index_pos" : "1.8.4.1.3",
+                              "documentation" : "=head1 Get all references to an identifier \n\n Parameters:\n $self : a PerlIndex\n $id : identifier\n \n Returns\n \n ARRAYREF to all references including file, line number, and match string\n \n [ { file => ..., location => ..., match => ..., ppidoc => PPI document, \n \tppitok => PPI start token,\n   }, ... ]\n\n=cut\n",
+                              "title" : "getReferences",
+                              "type" : "sub"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlIndex.pm.html#line_317",
+                              "options" : "show_type",
+                              "location" : 318,
+                              "path" : "Index/Tools_PerlIndex.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_317",
+                              "linear_index_pos" : "1.8.4.1.4",
+                              "documentation" : "=head2 Search find all module dependencies\n\n Parameters:\n $self              : the self object\n $external_only=0   : 1 to only list packages not found in the index\n $core_minversion=5 : minimum core version to contain the package\n\n Returns:\n {\n \tpackage => [ \n \t\treferences\n \t]\n }\n=cut\n",
+                              "title" : "getDependencies",
+                              "type" : "sub"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlIndex.pm.html#line_381",
+                              "options" : "show_type",
+                              "location" : 381,
+                              "path" : "Index/Tools_PerlIndex.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_381",
+                              "linear_index_pos" : "1.8.4.1.5",
+                              "documentation" : "=head1 Search for identifiers using regular expressions\n\n Parameters:\n $self : a PerlIndex\n $expr : a regular expression\n $type : undef, or restriction to a type\n \n Returns:\n An ARRAYREF to a list of declarations \n\n=cut\n",
+                              "title" : "searchIdentifiers",
+                              "type" : "sub"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlIndex.pm.html#line_1",
+                        "options" : "",
+                        "location" : 1,
+                        "path" : "Index/Tools_PerlIndex.pm",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_1",
+                        "linear_index_pos" : "1.8.4.2",
+                        "title" : "Perl Library Indexer",
+                        "type" : "h1"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlIndex.pm.html#line_27",
+                        "options" : "",
+                        "location" : 26,
+                        "path" : "Index/Tools_PerlIndex.pm",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_27",
+                        "linear_index_pos" : "1.8.4.3",
+                        "title" : "Constructor",
+                        "type" : "h1"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlIndex.pm.html#line_162",
+                        "options" : "",
+                        "location" : 161,
+                        "path" : "Index/Tools_PerlIndex.pm",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_162",
+                        "linear_index_pos" : "1.8.4.4",
+                        "title" : "Split a perl identifier name into a path, a file name and a declaration",
+                        "type" : "h1"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlIndex.pm.html#line_225",
+                        "options" : "",
+                        "location" : 224,
+                        "path" : "Index/Tools_PerlIndex.pm",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_225",
+                        "linear_index_pos" : "1.8.4.5",
+                        "title" : "Get all references to an identifier",
+                        "type" : "h1"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlIndex.pm.html#line_304",
+                              "options" : "",
+                              "location" : 303,
+                              "path" : "Index/Tools_PerlIndex.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_304",
+                              "linear_index_pos" : "1.8.4.5.1",
+                              "title" : "Search find all module dependencies",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlIndex.pm.html#line_371",
+                        "options" : "",
+                        "location" : 370,
+                        "path" : "Index/Tools_PerlIndex.pm",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_371",
+                        "linear_index_pos" : "1.8.4.6",
+                        "title" : "Search for identifiers using regular expressions",
+                        "type" : "h1"
+                     },
+                     "name" : "",
+                     "children" : []
+                  }
+               ]
+            },
+            {
+               "value" : {
+                  "link" : "Tools_PerlParser.pm.html",
+                  "location" : 0,
+                  "style" : "h1",
+                  "path" : "Index/Tools_PerlParser.pm",
+                  "anchor" : "#",
+                  "level" : 3,
+                  "linear_index_pos" : "1.8.5",
+                  "type" : "file",
+                  "title" : "PerlParser.pm"
+               },
+               "name" : "PerlParser.pm",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_6",
+                        "location" : 7,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_6",
+                        "linear_index_pos" : "1.8.5.1",
+                        "documentation" : "=head1 Perl Parser ##0\nThis package splits perl code into code, comments and POD code.\n=cut\n",
+                        "type" : "package",
+                        "title" : "Tools::PerlParser"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_53",
+                              "location" : 54,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_53",
+                              "linear_index_pos" : "1.8.5.1.1",
+                              "documentation" : "=head2 Add a handler for a parser state.\n\nSee above for supported states.\n=cut\n",
+                              "type" : "sub",
+                              "title" : "setHandler"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_64",
+                              "location" : 65,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_64",
+                              "linear_index_pos" : "1.8.5.1.2",
+                              "documentation" : "=head2 Function to write out parsed source code, comment or POD comments\nVariable $current contains a buffer with the parsed source. This function \nprints and formats its contents according to the current state.\n=cut\n",
+                              "type" : "sub",
+                              "title" : "flushcurrent"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_86",
+                              "location" : 87,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_86",
+                              "linear_index_pos" : "1.8.5.1.3",
+                              "documentation" : "=head2 Main parser function\nCrude line by line parser to separate lines with comments only,\ncode lines and pod lines.\n\n Parameters:\n $filename : the name of the source file to parse\n\n=cut\n",
+                              "type" : "sub",
+                              "title" : "parse"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_344",
+                              "location" : 345,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_344",
+                              "linear_index_pos" : "1.8.5.1.4",
+                              "documentation" : "=head2 Get a tree of significant content elements\n\n=cut\n",
+                              "type" : "sub",
+                              "title" : "get_contents_tree"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_362",
+                              "location" : 363,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_362",
+                              "linear_index_pos" : "1.8.5.1.5",
+                              "documentation" : "=head2 PPI::Find filter for declarations\n\n Parameters:\n $cur : a PPI::Token\n\n Returns:\n 1 if element fits the criteria\n 0 if element does not fit\n undef if children do not need to be looked at.\n See also PPI::Find -> &wanted\n\n=cut\n",
+                              "type" : "sub",
+                              "title" : "declarations"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_389",
+                              "location" : 390,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_389",
+                              "linear_index_pos" : "1.8.5.1.6",
+                              "documentation" : "=head2 Get all method, class, package and variable declaration nodes\n\n Returns:\n\n A Tree of declarations\n\n=cut\n",
+                              "type" : "sub",
+                              "title" : "get_declarations"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_401",
+                              "location" : 402,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_401",
+                              "linear_index_pos" : "1.8.5.1.7",
+                              "documentation" : "=head2 Get the PPI Parser document\n\n Returns:\n The PPI Document parsed from the input.\n\n=cut\n",
+                              "type" : "sub",
+                              "title" : "get_ppi_document"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_416",
+                              "location" : 417,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_416",
+                              "linear_index_pos" : "1.8.5.1.8",
+                              "documentation" : "=head2 Get the type and title of a PPI element\n\n Parameters:\n $cur : the element\n\n Returns:\n [ $title , $type ]\n\n=cut\n",
+                              "type" : "sub",
+                              "title" : "get_title_and_type"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_439",
+                              "location" : 440,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_439",
+                              "linear_index_pos" : "1.8.5.1.9",
+                              "documentation" : "=head2 Get the documentation directly preceding a PPI Element\n\n Parameters:\n $el : the element\n\n Returns:\n The first pod block in front of this statement, or all comments\n up to the first element that is not whitespace. If no pod or comments\n are found up to the first non-whitespace element, we return undef\n \n=cut\n",
+                              "type" : "sub",
+                              "title" : "get_documentation"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_470",
+                              "location" : 469,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_470",
+                              "linear_index_pos" : "1.8.5.1.10",
+                              "documentation" : "",
+                              "type" : "sub",
+                              "title" : "dump"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_8",
+                        "location" : 27,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_8",
+                        "linear_index_pos" : "1.8.5.2",
+                        "documentation" : "# state can have three values:\n\n#  code: code that will be pretty-printed\n\n#  pod : pod code\n\n#  comment : multiple lines of comments\n\n#  end : end perl code, everything is pod\n",
+                        "type" : "global",
+                        "title" : "$state"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_50",
+                        "location" : 30,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_50",
+                        "linear_index_pos" : "1.8.5.3",
+                        "documentation" : "# code buffers: current code, and everything\n",
+                        "type" : "global",
+                        "title" : "$current"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_50",
+                        "location" : 31,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_50",
+                        "linear_index_pos" : "1.8.5.4",
+                        "documentation" : "",
+                        "type" : "global",
+                        "title" : "$everything"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_50",
+                        "location" : 32,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_50",
+                        "linear_index_pos" : "1.8.5.5",
+                        "documentation" : "",
+                        "type" : "global",
+                        "title" : "$lineno"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_50",
+                        "location" : 33,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_50",
+                        "linear_index_pos" : "1.8.5.6",
+                        "documentation" : "",
+                        "type" : "global",
+                        "title" : "$last_lineno"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_50",
+                        "location" : 36,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_50",
+                        "linear_index_pos" : "1.8.5.7",
+                        "documentation" : "# PPI parser stuff\n",
+                        "type" : "global",
+                        "title" : "$ppidoc"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_50",
+                        "location" : 39,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_50",
+                        "linear_index_pos" : "1.8.5.8",
+                        "documentation" : "# table of contents tree\n",
+                        "type" : "global",
+                        "title" : "$countents_tree"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_50",
+                        "location" : 42,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_50",
+                        "linear_index_pos" : "1.8.5.9",
+                        "documentation" : "# the declarations subtree\n",
+                        "type" : "global",
+                        "title" : "$declarations_node"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_50",
+                        "location" : 45,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_50",
+                        "linear_index_pos" : "1.8.5.10",
+                        "documentation" : "# handler callback functions\n",
+                        "type" : "global",
+                        "title" : "%handlers"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_50",
+                        "location" : 47,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_50",
+                        "linear_index_pos" : "1.8.5.11",
+                        "documentation" : "",
+                        "type" : "global",
+                        "title" : "$has_moose"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_88",
+                        "location" : 103,
+                        "options" : "show_type",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_88",
+                        "linear_index_pos" : "1.8.5.12",
+                        "documentation" : "\t# initialize contents tree.\n",
+                        "type" : "global",
+                        "title" : "$contents_tree"
+                     },
+                     "name" : "",
+                     "children" : []
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser.pm.html#line_4",
+                        "location" : 3,
+                        "options" : "",
+                        "path" : "Index/Tools_PerlParser.pm",
+                        "index_path" : "0",
+                        "level" : 4,
+                        "anchor" : "#line_4",
+                        "linear_index_pos" : "1.8.5.13",
+                        "type" : "h1",
+                        "title" : "Perl Parser "
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_50",
+                              "location" : 49,
+                              "options" : "",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_50",
+                              "linear_index_pos" : "1.8.5.13.1",
+                              "type" : "h2",
+                              "title" : "Add a handler for a parser state."
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_61",
+                              "location" : 60,
+                              "options" : "",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_61",
+                              "linear_index_pos" : "1.8.5.13.2",
+                              "type" : "h2",
+                              "title" : "Function to write out parsed source code, comment or POD comments"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_79",
+                              "location" : 78,
+                              "options" : "",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_79",
+                              "linear_index_pos" : "1.8.5.13.3",
+                              "type" : "h2",
+                              "title" : "Main parser function"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_342",
+                              "location" : 341,
+                              "options" : "",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_342",
+                              "linear_index_pos" : "1.8.5.13.4",
+                              "type" : "h2",
+                              "title" : "Get a tree of significant content elements"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_351",
+                              "location" : 350,
+                              "options" : "",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_351",
+                              "linear_index_pos" : "1.8.5.13.5",
+                              "type" : "h2",
+                              "title" : "PPI::Find filter for declarations"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_383",
+                              "location" : 382,
+                              "options" : "",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_383",
+                              "linear_index_pos" : "1.8.5.13.6",
+                              "type" : "h2",
+                              "title" : "Get all method, class, package and variable declaration nodes"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_396",
+                              "location" : 395,
+                              "options" : "",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_396",
+                              "linear_index_pos" : "1.8.5.13.7",
+                              "type" : "h2",
+                              "title" : "Get the PPI Parser document"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_408",
+                              "location" : 407,
+                              "options" : "",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_408",
+                              "linear_index_pos" : "1.8.5.13.8",
+                              "type" : "h2",
+                              "title" : "Get the type and title of a PPI element"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser.pm.html#line_429",
+                              "location" : 428,
+                              "options" : "",
+                              "path" : "Index/Tools_PerlParser.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_429",
+                              "linear_index_pos" : "1.8.5.13.9",
+                              "type" : "h2",
+                              "title" : "Get the documentation directly preceding a PPI Element"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "value" : {
+                  "link" : "Tools_Tree.pm.html",
+                  "location" : 0,
+                  "style" : "h1",
+                  "path" : "Index/Tools_Tree.pm",
+                  "anchor" : "#",
+                  "level" : 3,
+                  "linear_index_pos" : "1.8.6",
+                  "title" : "Tree.pm",
+                  "type" : "file"
+               },
+               "name" : "Tree.pm",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "Tools_Tree.pm.html#line_10",
+                        "options" : "show_type",
+                        "location" : 10,
+                        "path" : "Index/Tools_Tree.pm",
+                        "ppinode" : null,
+                        "level" : 4,
+                        "anchor" : "#line_10",
+                        "linear_index_pos" : "1.8.6.1",
+                        "documentation" : "=head1 Tree class\n\n Contains functions for adding children and traversing top-down\n\n=cut\n",
+                        "title" : "Tools::Tree",
+                        "type" : "class"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_17",
+                              "options" : "show_type",
+                              "location" : 16,
+                              "path" : "Index/Tools_Tree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_17",
+                              "linear_index_pos" : "1.8.6.1.1",
+                              "documentation" : "    # Parent node of this tree\n",
+                              "title" : "'parent'",
+                              "type" : "has"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_24",
+                              "options" : "show_type",
+                              "location" : 23,
+                              "path" : "Index/Tools_Tree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_24",
+                              "linear_index_pos" : "1.8.6.1.2",
+                              "documentation" : "    # Array of children\n",
+                              "title" : "'children'",
+                              "type" : "has"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_31",
+                              "options" : "show_type",
+                              "location" : 30,
+                              "path" : "Index/Tools_Tree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_31",
+                              "linear_index_pos" : "1.8.6.1.3",
+                              "documentation" : "    # Each tree node can store a value\n",
+                              "title" : "'value'",
+                              "type" : "has"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_45",
+                              "options" : "show_type",
+                              "location" : 45,
+                              "path" : "Index/Tools_Tree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_45",
+                              "linear_index_pos" : "1.8.6.1.4",
+                              "documentation" : "=head2 add a child node\n\n Parameters:\n $value : the value to add to the node\n\n Returns:\n The node that was created\n\n=cut\n",
+                              "title" : "add_child",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_60",
+                              "options" : "show_type",
+                              "location" : 61,
+                              "path" : "Index/Tools_Tree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_60",
+                              "linear_index_pos" : "1.8.6.1.5",
+                              "documentation" : "=head2 remove all children with a certain value\n\n Parameters:\n $value : the value to compare to (string comparison)\n\n=cut\n",
+                              "title" : "delete_children",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_81",
+                              "options" : "show_type",
+                              "location" : 81,
+                              "path" : "Index/Tools_Tree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_81",
+                              "linear_index_pos" : "1.8.6.1.6",
+                              "documentation" : "=head2 add a tree as a child node\n\n Parameters:\n $n : a subtree to append\n\n Returns: $self\n\n=cut\n",
+                              "title" : "add_child_node",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_96",
+                              "options" : "show_type",
+                              "location" : 96,
+                              "path" : "Index/Tools_Tree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_96",
+                              "linear_index_pos" : "1.8.6.1.7",
+                              "documentation" : "=head2 Traverse tree top to bottom\n\n Parameters:\n $c : a coderef that might return something for each node\n\n Returns:\n An array containing all values $c->($v) for all values $v in the tree\n\n=cut\n",
+                              "title" : "traverse",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_122",
+                              "options" : "show_type",
+                              "location" : 122,
+                              "path" : "Index/Tools_Tree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_122",
+                              "linear_index_pos" : "1.8.6.1.8",
+                              "documentation" : "=head2 Traverse tree top to bottom, passing the value by reference\n\n Parameters:\n $c : a coderef that might return something for each node\n\n Returns:\n An array containing all values $c->($v) for all values $v in the tree\n\n=cut\n",
+                              "title" : "traverse_update",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_139",
+                              "options" : "show_type",
+                              "location" : 139,
+                              "path" : "Index/Tools_Tree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_139",
+                              "linear_index_pos" : "1.8.6.1.9",
+                              "documentation" : "=head2 Convert tree to JSON-compatible tree.\n\n Returns:\n untyped, JSON-compatible tree (removing the parent links)\n=cut\n",
+                              "title" : "TO_JSON",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_158",
+                              "options" : "show_type",
+                              "location" : 158,
+                              "path" : "Index/Tools_Tree.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_158",
+                              "linear_index_pos" : "1.8.6.1.10",
+                              "documentation" : "=head2 restore parent links and blessings after serializing to JSON\n\n Parameters:\n $hash : JSON-compatible hash (see TO_JSON)\n\n Returns:\n $self\n=cut\n",
+                              "title" : "FROM_JSON",
+                              "type" : "method"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  },
+                  {
+                     "value" : {
+                        "link" : "Tools_Tree.pm.html#line_6",
+                        "options" : "",
+                        "location" : 5,
+                        "path" : "Index/Tools_Tree.pm",
+                        "index_path" : null,
+                        "level" : 4,
+                        "anchor" : "#line_6",
+                        "linear_index_pos" : "1.8.6.2",
+                        "title" : "Tree class",
+                        "type" : "h1"
+                     },
+                     "name" : "",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_37",
+                              "options" : "",
+                              "location" : 36,
+                              "path" : "Index/Tools_Tree.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_37",
+                              "linear_index_pos" : "1.8.6.2.1",
+                              "title" : "add a child node",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_55",
+                              "options" : "",
+                              "location" : 54,
+                              "path" : "Index/Tools_Tree.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_55",
+                              "linear_index_pos" : "1.8.6.2.2",
+                              "title" : "remove all children with a certain value",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_74",
+                              "options" : "",
+                              "location" : 73,
+                              "path" : "Index/Tools_Tree.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_74",
+                              "linear_index_pos" : "1.8.6.2.3",
+                              "title" : "add a tree as a child node",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_88",
+                              "options" : "",
+                              "location" : 87,
+                              "path" : "Index/Tools_Tree.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_88",
+                              "linear_index_pos" : "1.8.6.2.4",
+                              "title" : "Traverse tree top to bottom",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_114",
+                              "options" : "",
+                              "location" : 113,
+                              "path" : "Index/Tools_Tree.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_114",
+                              "linear_index_pos" : "1.8.6.2.5",
+                              "title" : "Traverse tree top to bottom, passing the value by reference",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_135",
+                              "options" : "",
+                              "location" : 134,
+                              "path" : "Index/Tools_Tree.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_135",
+                              "linear_index_pos" : "1.8.6.2.6",
+                              "title" : "Convert tree to JSON-compatible tree.",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Tree.pm.html#line_151",
+                              "options" : "",
+                              "location" : 150,
+                              "path" : "Index/Tools_Tree.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_151",
+                              "linear_index_pos" : "1.8.6.2.7",
+                              "title" : "restore parent links and blessings after serializing to JSON",
+                              "type" : "h2"
+                           },
+                           "name" : "",
+                           "children" : []
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "value" : {
+                  "level" : 3,
+                  "linear_index_pos" : "1.8.7",
+                  "style" : "h1",
+                  "title" : "Output",
+                  "type" : "folder",
+                  "path" : "Index/"
+               },
+               "name" : "Output",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "Tools_Output_HTML.pm.html",
+                        "location" : 0,
+                        "style" : "h1",
+                        "path" : "Index/Tools_Output_HTML.pm",
+                        "anchor" : "#",
+                        "level" : 4,
+                        "linear_index_pos" : "1.8.7.1",
+                        "type" : "file",
+                        "title" : "HTML.pm"
+                     },
+                     "name" : "HTML.pm",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_Output_HTML.pm.html#line_10",
+                              "location" : 11,
+                              "options" : "show_type",
+                              "path" : "Index/Tools_Output_HTML.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_10",
+                              "linear_index_pos" : "1.8.7.1.1",
+                              "documentation" : "=head1 HTML Output Package\n\n HTML Output implementation\n\n=cut\n",
+                              "type" : "class",
+                              "title" : "Tools::Output::HTML"
+                           },
+                           "name" : "",
+                           "children" : [
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_20",
+                                    "location" : 20,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_20",
+                                    "linear_index_pos" : "1.8.7.1.1.1",
+                                    "documentation" : "    ## append text\n",
+                                    "type" : "method",
+                                    "title" : "t"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_25",
+                                    "location" : 25,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_25",
+                                    "linear_index_pos" : "1.8.7.1.1.2",
+                                    "documentation" : "    ## append escaped text\n",
+                                    "type" : "method",
+                                    "title" : "xt"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_30",
+                                    "location" : 30,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_30",
+                                    "linear_index_pos" : "1.8.7.1.1.3",
+                                    "documentation" : "    ## append a hrule\n",
+                                    "type" : "method",
+                                    "title" : "hr"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_35",
+                                    "location" : 35,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_35",
+                                    "linear_index_pos" : "1.8.7.1.1.4",
+                                    "documentation" : "    ## append a line break\n",
+                                    "type" : "method",
+                                    "title" : "br"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_40",
+                                    "location" : 40,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_40",
+                                    "linear_index_pos" : "1.8.7.1.1.5",
+                                    "documentation" : "    ## append a par\n",
+                                    "type" : "method",
+                                    "title" : "p"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_51",
+                                    "location" : 51,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_51",
+                                    "linear_index_pos" : "1.8.7.1.1.6",
+                                    "documentation" : "=head2 Decorators\n\nDecorator functions add markup to the text passed and return the result.\n\n=cut\n\n    ## headings\n",
+                                    "type" : "method",
+                                    "title" : "h"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_57",
+                                    "location" : 57,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_57",
+                                    "linear_index_pos" : "1.8.7.1.1.7",
+                                    "documentation" : "    ## boldface\n",
+                                    "type" : "method",
+                                    "title" : "b"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_62",
+                                    "location" : 62,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_62",
+                                    "linear_index_pos" : "1.8.7.1.1.8",
+                                    "documentation" : "    ## italic/emph\n",
+                                    "type" : "method",
+                                    "title" : "i"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_67",
+                                    "location" : 67,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_67",
+                                    "linear_index_pos" : "1.8.7.1.1.9",
+                                    "documentation" : "    ##ÃÂ tt font\n",
+                                    "type" : "method",
+                                    "title" : "tt"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_72",
+                                    "location" : 72,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_72",
+                                    "linear_index_pos" : "1.8.7.1.1.10",
+                                    "documentation" : "    ## escape text\n",
+                                    "type" : "method",
+                                    "title" : "x"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_77",
+                                    "location" : 77,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_77",
+                                    "linear_index_pos" : "1.8.7.1.1.11",
+                                    "documentation" : "    ## make an anchor.\n",
+                                    "type" : "method",
+                                    "title" : "a"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_83",
+                                    "location" : 83,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_83",
+                                    "linear_index_pos" : "1.8.7.1.1.12",
+                                    "documentation" : "    ## make a link.\n",
+                                    "type" : "method",
+                                    "title" : "l"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_88",
+                                    "location" : 88,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_88",
+                                    "linear_index_pos" : "1.8.7.1.1.13",
+                                    "documentation" : "    ## assign some style\n",
+                                    "type" : "method",
+                                    "title" : "style"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_101",
+                                    "location" : 101,
+                                    "options" : "show_type",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_101",
+                                    "linear_index_pos" : "1.8.7.1.1.14",
+                                    "documentation" : "=head2 Pretty-print code\n\n(we use Perl code pretty printing)\n\n Parameters:\n $code : the code\n $type : the type of code (perl/pod/md/...)\n\n=cut\n",
+                                    "type" : "method",
+                                    "title" : "code"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              }
+                           ]
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_Output_HTML.pm.html#line_6",
+                              "location" : 5,
+                              "options" : "",
+                              "path" : "Index/Tools_Output_HTML.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_6",
+                              "linear_index_pos" : "1.8.7.1.2",
+                              "type" : "h1",
+                              "title" : "HTML Output Package"
+                           },
+                           "name" : "",
+                           "children" : [
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_45",
+                                    "location" : 44,
+                                    "options" : "",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "index_path" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_45",
+                                    "linear_index_pos" : "1.8.7.1.2.1",
+                                    "type" : "h2",
+                                    "title" : "Decorators"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_Output_HTML.pm.html#line_93",
+                                    "location" : 92,
+                                    "options" : "",
+                                    "path" : "Index/Tools_Output_HTML.pm",
+                                    "index_path" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_93",
+                                    "linear_index_pos" : "1.8.7.1.2.2",
+                                    "type" : "h2",
+                                    "title" : "Pretty-print code"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              }
+                           ]
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "value" : {
+                  "level" : 3,
+                  "linear_index_pos" : "1.8.8",
+                  "style" : "h1",
+                  "type" : "folder",
+                  "title" : "PerlParser",
+                  "path" : "Index/"
+               },
+               "name" : "PerlParser",
+               "children" : [
+                  {
+                     "value" : {
+                        "link" : "Tools_PerlParser_Declaration.pm.html",
+                        "location" : 0,
+                        "style" : "h1",
+                        "path" : "Index/Tools_PerlParser_Declaration.pm",
+                        "anchor" : "#",
+                        "level" : 4,
+                        "linear_index_pos" : "1.8.8.1",
+                        "title" : "Declaration.pm",
+                        "type" : "file"
+                     },
+                     "name" : "Declaration.pm",
+                     "children" : [
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser_Declaration.pm.html#line_6",
+                              "options" : "show_type",
+                              "location" : 6,
+                              "path" : "Index/Tools_PerlParser_Declaration.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_6",
+                              "linear_index_pos" : "1.8.8.1.1",
+                              "documentation" : "=head1 Declaration class\n\nBase class for \n\n=cut\n",
+                              "title" : "Tools::PerlParser::Declaration",
+                              "type" : "package"
+                           },
+                           "name" : "",
+                           "children" : [
+                              {
+                                 "value" : {
+                                    "link" : "Tools_PerlParser_Declaration.pm.html#line_27",
+                                    "options" : "show_type",
+                                    "location" : 27,
+                                    "path" : "Index/Tools_PerlParser_Declaration.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_27",
+                                    "linear_index_pos" : "1.8.8.1.1.1",
+                                    "documentation" : "=head2 Constructor for a new declaration element\n\nParameters:\n$ppinode : a PPI Element from the PPI parse tree\n\nReturns:\nA blessed Declaration HASHREF\n\n=cut\n",
+                                    "title" : "new",
+                                    "type" : "sub"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_PerlParser_Declaration.pm.html#line_96",
+                                    "options" : "show_type",
+                                    "location" : 96,
+                                    "path" : "Index/Tools_PerlParser_Declaration.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_96",
+                                    "linear_index_pos" : "1.8.8.1.1.2",
+                                    "documentation" : "=head2 Static: Check if a PPI node is a declaration\n\nParameters:\n$cur : a PPI element\n$has_moose : 1 if Moose declarations should be accepted\n\nReturns:\n1 if $cur points to a declaration, 0 otherwise\n\n=cut\n",
+                                    "title" : "is_declaration",
+                                    "type" : "sub"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_PerlParser_Declaration.pm.html#line_147",
+                                    "options" : "show_type",
+                                    "location" : 147,
+                                    "path" : "Index/Tools_PerlParser_Declaration.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_147",
+                                    "linear_index_pos" : "1.8.8.1.1.3",
+                                    "documentation" : "=head2 Change the name of a declaration \n\n=cut\n",
+                                    "title" : "rename",
+                                    "type" : "sub"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_PerlParser_Declaration.pm.html#line_200",
+                                    "options" : "show_type",
+                                    "location" : 200,
+                                    "path" : "Index/Tools_PerlParser_Declaration.pm",
+                                    "ppinode" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_200",
+                                    "linear_index_pos" : "1.8.8.1.1.4",
+                                    "documentation" : "=head2 Get the starting location of the declaration\n\nReturns:\n[ Start token, End token ]\n\n=cut\n",
+                                    "title" : "get_start_and_end_tokens",
+                                    "type" : "sub"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              }
+                           ]
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser_Declaration.pm.html#line_19",
+                              "options" : "show_type",
+                              "location" : 14,
+                              "path" : "Index/Tools_PerlParser_Declaration.pm",
+                              "ppinode" : null,
+                              "level" : 5,
+                              "anchor" : "#line_19",
+                              "linear_index_pos" : "1.8.8.1.2",
+                              "documentation" : "# everything that will be accepted as a Moose keyword\n",
+                              "title" : "@moose_keywords",
+                              "type" : "global"
+                           },
+                           "name" : "",
+                           "children" : []
+                        },
+                        {
+                           "value" : {
+                              "link" : "Tools_PerlParser_Declaration.pm.html#line_1",
+                              "options" : "",
+                              "location" : 1,
+                              "path" : "Index/Tools_PerlParser_Declaration.pm",
+                              "index_path" : null,
+                              "level" : 5,
+                              "anchor" : "#line_1",
+                              "linear_index_pos" : "1.8.8.1.3",
+                              "title" : "Declaration class",
+                              "type" : "h1"
+                           },
+                           "name" : "",
+                           "children" : [
+                              {
+                                 "value" : {
+                                    "link" : "Tools_PerlParser_Declaration.pm.html#line_19",
+                                    "options" : "",
+                                    "location" : 18,
+                                    "path" : "Index/Tools_PerlParser_Declaration.pm",
+                                    "index_path" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_19",
+                                    "linear_index_pos" : "1.8.8.1.3.1",
+                                    "title" : "Constructor for a new declaration element",
+                                    "type" : "h2"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_PerlParser_Declaration.pm.html#line_87",
+                                    "options" : "",
+                                    "location" : 86,
+                                    "path" : "Index/Tools_PerlParser_Declaration.pm",
+                                    "index_path" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_87",
+                                    "linear_index_pos" : "1.8.8.1.3.2",
+                                    "title" : "Static: Check if a PPI node is a declaration",
+                                    "type" : "h2"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_PerlParser_Declaration.pm.html#line_145",
+                                    "options" : "",
+                                    "location" : 144,
+                                    "path" : "Index/Tools_PerlParser_Declaration.pm",
+                                    "index_path" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_145",
+                                    "linear_index_pos" : "1.8.8.1.3.3",
+                                    "title" : "Change the name of a declaration",
+                                    "type" : "h2"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              },
+                              {
+                                 "value" : {
+                                    "link" : "Tools_PerlParser_Declaration.pm.html#line_195",
+                                    "options" : "",
+                                    "location" : 194,
+                                    "path" : "Index/Tools_PerlParser_Declaration.pm",
+                                    "index_path" : null,
+                                    "level" : 6,
+                                    "anchor" : "#line_195",
+                                    "linear_index_pos" : "1.8.8.1.3.4",
+                                    "title" : "Get the starting location of the declaration",
+                                    "type" : "h2"
+                                 },
+                                 "name" : "",
+                                 "children" : []
+                              }
+                           ]
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}

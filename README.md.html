@@ -1,0 +1,161 @@
+<html>
+<head> <title>README.md</title>
+<script src="js/jquery.js" ></script>
+<script src="js/jquery-ui.js" ></script>
+
+<script src="js/highlight.pack.js" ></script>
+
+<script src="js/index.js" ></script>
+<script src="js/search.js" ></script>
+<script src="js/documenter.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/github.css" />
+<link rel="stylesheet" type="text/css" href="css/documenter.css" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="feed.rss">
+
+ <script>
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+<div id="toolbar" class="ui-widget-content ui-widget-header ui-corner-all" style="display:none;">
+	<center>
+		<button id="upbutton">Index</button>
+		<button id="indexbutton">Outline</button>&nbsp;
+		<span id="search"></span>
+		<span id="collapseexpand">
+			<button id="collapseall">Collapse Code</button>
+			<button id="expandall">Expand Code</button>
+		</span>
+		<button id="print">Print</button>
+	</center>
+</div>
+<div id="index" class="ui-widget-content ui-corner-all" style="padding: 5px">
+	<noscript><a href="static_index.html">Click here to show the complete source index.</a>
+	</noscript>
+</div>
+<div id="content"><h1>The Perl+Moose Documentation Generator</h1>
+
+<p>This is a simple documentation tool for source code. It is a prototype which
+currently supports Perl (+Moose).</p>
+
+<p>We generate HTML page from source code, and create a searchable index. This
+index contains elements both generated from documentation and from some basic
+code-intelligence (we recognize functions, classes, packages, etc).</p>
+
+<p>Mainly, this was made to make code documentation as easy as possible. We do
+not use any special markup for parameters and such, and the amount of comments
+required in the source files is rather minimal. To make things easier to read
+however, it is a good idea to write code with good structure.</p>
+
+<p>So, here is how some Moose code looks.</p>
+
+<pre><code class="perl">
+use MooseX::Declare;
+
+=head1 Some class doing stuff in Perl
+
+=cut
+
+class MyClass {
+
+=head2 This method does cool things.
+
+ Parameters: $i : A number
+
+ Returns: That number $i, incremented.
+
+=cut 
+
+method some_method(Int $i) { return $i + 1; } }
+
+</code></pre>
+
+<p>This is what this tool does:</p>
+
+<ul>
+<li>It associates the first head1 with the package/class <code>MyClass</code>.</li>
+<li>head2 and double-hash elements are connected to the method/declaration
+below.</li>
+<li>We recognize some markup (or markdown, or pod) for formatting and links</li>
+</ul>
+
+<p>Using the recursivedocumenter script, this can be done recursively for a set
+of modules. The generated index then allows searching across a bigger set of
+source files.</p>
+
+<h2>Dependencies</h2>
+
+<p><strong>Javascript/HTML:</strong> </p>
+
+<ul>
+<li><a href="http://jquery.com/">jQuery</a> and <a href="http://jqueryui.com/">jQueryUI</a></li>
+<li><a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a></li>
+<li>The <a href="www.famfamfam.com/lab/icons/">famfamfam silk icons</a></li>
+<li>optionally: <a href="http://rubygems.org/gems/redcarpet">redcarpet</a> (for more
+github-like <a href="http://daringfireball.net/projects/markdown/">markdown</a>
+rendering). 
+You can install it by running <code>gem install redcarpet</code> if you have Ruby.</li>
+</ul>
+
+<p><strong>Perl:</strong> </p>
+
+<p>The follwing Perl modules are required. You can install them via CPAN (run <code>cpan</code>, then
+<code>install &lt;modulename&gt;</code> for each of the modules shown below), or
+using apt if you&#39;re on Ubuntu.</p>
+
+<p>The template toolkit (used to process HTML and MD templates)</p>
+
+<ul>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=Template">Template </a></li>
+</ul>
+
+<p>Things for <a href="http://daringfireball.net/projects/markdown/">markdown</a> rendering:</p>
+
+<ul>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=Perl::Markdown">Perl::Markdown</a></li>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=Pod::Markdown">Pod::Markdown</a></li>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=Text::Markdown">Text::Markdown</a></li>
+</ul>
+
+<p>The Perl Parser Interface: </p>
+
+<ul>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=PPI">PPI </a></li>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=PPI::Dumper">PPI::Dumper</a></li>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=PPI::Find">PPI::Find</a></li>
+</ul>
+
+<p>Moose and MooseX (installing MooseX::Declare installs everything necessary)</p>
+
+<ul>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=MooseX::Declare">MooseX::Declare </a></li>
+</ul>
+
+<p>This stuff is used for rendering the RSS feed.</p>
+
+<ul>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=URI::Escape">URI::Escape</a></li>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=DateTime">DateTime </a></li>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=DateTime::Format::Epoch">DateTime::Format::Epoch </a></li>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=XML::RSS">XML::RSS </a></li>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=DateTime::Format::W3CDTF">DateTime::Format::W3CDTF</a></li>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=HTML::Entities">HTML::Entities</a></li>
+</ul>
+
+<p>Others:</p>
+
+<ul>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=Parse::RecDescent">Parse::RecDescent</a></li>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=File::Which">File::Which</a></li>
+<li> <a href="http://search.cpan.org/search?mode=all&amp;query=JSON">JSON</a></li>
+</ul>
+</div>
+<div id="footer" class="ui-widget-content ui-widget-header ui-corner-all">Generated using <a href="https://github.com/pkrusche/documenter">Perl Documenter</a> &copy; 2012 Peter Krusche</div>
+</body>
+</html>

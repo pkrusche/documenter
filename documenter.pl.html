@@ -1,0 +1,508 @@
+<html>
+<head> <title>documenter.pl</title>
+<script src="js/jquery.js" ></script>
+<script src="js/jquery-ui.js" ></script>
+
+<script src="js/highlight.pack.js" ></script>
+
+<script src="js/index.js" ></script>
+<script src="js/search.js" ></script>
+<script src="js/documenter.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/github.css" />
+<link rel="stylesheet" type="text/css" href="css/documenter.css" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="feed.rss">
+
+ <script>
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+<div id="toolbar" class="ui-widget-content ui-widget-header ui-corner-all" style="display:none;">
+	<center>
+		<button id="upbutton">Index</button>
+		<button id="indexbutton">Outline</button>&nbsp;
+		<span id="search"></span>
+		<span id="collapseexpand">
+			<button id="collapseall">Collapse Code</button>
+			<button id="expandall">Expand Code</button>
+		</span>
+		<button id="print">Print</button>
+	</center>
+</div>
+<div id="index" class="ui-widget-content ui-corner-all" style="padding: 5px">
+	<noscript><a href="static_index.html">Click here to show the complete source index.</a>
+	</noscript>
+</div>
+<div id="content"><a name="line_1" /><a name="line_4" /><h1>Literate Programming Automatic Documenter</h1>
+
+<p>This is a tool to make source code more accessible and
+automatically generate documentation for source code that
+contains few comments.</p>
+
+<p>It will recognize POD comments and some special markup.</p>
+
+<p>The result is a pretty HTML version of your source file(s),
+together with an outline.</p>
+<a name="line_15" /><div class="code"><pre><code class="perl">use strict;
+use warnings;
+use feature &quot;state&quot;;</code></pre></div><a name="line_21" /><strong>## </strong><span class="monospaced"> make sure this script also works when called from somewhere else </span><a name="line_22" /><div class="code"><pre><code class="perl">use FindBin qw($Bin);
+use lib &quot;$Bin&quot;;</code></pre></div><a name="line_25" /><strong>## </strong><span class="monospaced"> import HTML::Entities to escape stuff to HTML </span><a name="line_26" /><div class="code"><pre><code class="perl">use File::Spec qw(catfile catdir);
+use File::Basename;
+use File::Copy;
+use HTML::Entities;
+use Data::Dumper;
+use Getopt::Long;
+use Cwd;
+use JSON;
+use Template;</code></pre></div><a name="line_36" /><strong>## </strong><span class="monospaced"> These are our own tool libraries </span><a name="line_37" /><div class="code"><pre><code class="perl">use Tools::NamedTree;
+use Tools::PerlParser;
+use Tools::Output;
+use Tools::Output::HTML;</code></pre></div><a name="line_42" /><h2>Option parsing</h2>
+<a name="line_44" /><a name="line_46" /><strong>## </strong><span class="monospaced"> the input parameters </span><a name="line_47" /><div class="code"><pre><code class="perl"># input source file name
+my $filename = &#39;documenter.pl&#39;;
+
+# output directory to write to
+my $outputdirectory = &quot;./docs&quot;;
+
+# directory with images and additional source files.
+my $sourcedirectory = $Bin;</code></pre></div><a name="line_57" /><strong>## </strong><span class="monospaced"> output parameters: </span><a name="line_58" /><div class="code"><pre><code class="perl"># true when only printing usage message
+my $usage = 0;
+
+# true to prevent copying js/images/etc.
+my $nohelpercopy = 0;
+
+# output format
+my $format = &#39;html&#39;;
+
+# make an index file
+my $mkindex = 1;
+
+GetOptions(
+    &#39;outputdirectory|o=s&#39; =&gt; \$outputdirectory,
+    &#39;sourcedirectory|s=s&#39; =&gt; \$sourcedirectory,
+    &#39;help|h!&#39;             =&gt; \$usage,
+    &#39;nohelpercopy|n!&#39;     =&gt; \$nohelpercopy,
+    &#39;index|i!&#39;            =&gt; \$mkindex,
+    &#39;format|f=s&#39;          =&gt; \$format,
+);
+
+if ($usage) {
+    print &lt;&lt;&#39;END&#39;;
+Code Documenter usage:
+
+documenter.pl [options] &lt;filename&gt;
+
+Where [options] can be
+
+--outputdirectory &lt;dirname&gt; : set an output directory for the
+                              generated HTML files.
+
+							  Default value: &quot;./&quot;
+
+--sourcedirectory &lt;dirname&gt; : set an source directory to copy
+                              styles, images, etc. from
+
+                              This directory will default to the
+							  location of documenter.pl.
+
+--format &lt;html/md&gt;          : specify the output format
+
+--index                     : make an index file, too.
+
+END
+    exit 0;
+}
+
+$filename = $ARGV[$#ARGV]
+  if scalar @ARGV &gt; 0;
+
+if ( !-f $filename ) {
+    die &quot;Input file &#39;$filename&#39; does not exist.&quot;;
+}
+
+if ( !-d $outputdirectory ) {
+    die &quot;Output directory $outputdirectory does not exist.&quot;;
+}
+
+if ( !-d $sourcedirectory ) {
+    die &quot;Output directory $outputdirectory does not exist.&quot;;
+}
+
+if ($format ne &#39;html&#39; &amp;&amp; $format ne &#39;md&#39;) {
+    die &quot;Unknown output format $format&quot;;
+}
+
+my $outputclass = &#39;Tools::Output&#39;;
+my $templatefile = &quot;template.$format&quot;;
+# md is the default format.
+if ($format ne &#39;md&#39;) {
+    $outputclass = &#39;Tools::Output::&#39; . uc ($format);
+}
+
+eval {
+    # test creating this class here. dies if we don&#39;t have it
+    $outputclass-&gt;new;
+};
+if($@) {
+    die &quot;Cannot output to format $format ($@)&quot;;
+}
+
+my $templatedir = File::Spec-&gt;catdir($Bin, &#39;templates&#39;, $format);
+if(-d $templatedir) {
+    my $templatefiles = File::Spec-&gt;catfile($templatedir, &quot;*&quot;);
+    unless ($nohelpercopy) {
+        # this won&#39;t work on Windows.
+        if ($^O eq &#39;MSWin32&#39;) {
+            print STDERR qx(xcopy /E /Q /Y /C &quot;$templatedir\\*&quot; &quot;$outputdirectory&quot;);
+            unlink File::Spec-&gt;catfile($outputdirectory, &quot;template.$format&quot;);
+        } else {
+            print STDERR qx(cp -r $templatedir/* $outputdirectory);
+            unlink File::Spec-&gt;catfile($outputdirectory, &quot;template.$format&quot;);
+        }
+    }
+    $templatefile = File::Spec-&gt;catfile($templatedir, $templatefile);
+} else {
+    die &quot;Unknown template $format&quot;
+}</code></pre></div><a name="line_158" /><h2>File parsing and index generation</h2>
+<a name="line_160" /><a name="line_162" /><strong>## </strong><span class="monospaced"> index item formatting options </span><a name="line_163" /><div class="code"><pre><code class="perl">our %index_options = (
+    &quot;sub&quot;     =&gt; &quot;show_type&quot;,
+    &quot;method&quot;  =&gt; &quot;show_type&quot;,
+    &quot;package&quot; =&gt; &quot;show_type&quot;,
+    &quot;class&quot;   =&gt; &quot;show_type&quot;,
+    &quot;role&quot;    =&gt; &quot;show_type&quot;,
+    &quot;has&quot;     =&gt; &quot;show_type&quot;,
+    &quot;type&quot;    =&gt; &quot;show_type&quot;,
+    &quot;subtype&quot; =&gt; &quot;show_type&quot;,
+    &quot;enum&quot;    =&gt; &quot;show_type&quot;,
+    &quot;global&quot;  =&gt; &quot;show_type&quot;,
+);</code></pre></div><a name="line_176" /><strong>## </strong><span class="monospaced"> index of line numbers </span><a name="line_177" /><div class="code"><pre><code class="perl">our @line_index = ();</code></pre></div><a name="line_179" /><strong>## </strong><span class="monospaced"> global print options, set via comment markup </span><a name="line_180" /><div class="code"><pre><code class="perl">our %doc_options = ();</code></pre></div><a name="line_182" /><strong>## </strong><span class="monospaced"> create various output file names. </span><a name="line_183" /><div class="code"><pre><code class="perl"># windows-safety. This implies you can&#39;t have backslashes
+# as filenames. Which you shouldn&#39;t anyway.
+$filename =~ s/\\/\//g;
+
+# the title: remove leading &quot;./&quot; and make subfolders into packages
+my $titlefilename = $filename;
+$titlefilename =~ s/^\.\///;
+$titlefilename =~ s/\//::/g;
+
+# the HTML file needs to go into the same folder as all the other HTML code.
+our $htmlfilename = $filename . &quot;.$format&quot;;
+$htmlfilename =~ s/^\.\///;
+$htmlfilename =~ s/\//_/g;</code></pre></div><a name="line_198" /><strong>## </strong><span class="monospaced">  get the index tree for all files  append index tree to package index </span><a name="line_200" /><div class="code"><pre><code class="perl">my $pindexfile = File::Spec-&gt;catfile($outputdirectory, &quot;index.json&quot;);
+my $packageindex = Tools::NamedTree-&gt;new (name =&gt; &#39;documenter_root&#39;);
+
+$packageindex-&gt;value({
+    title =&gt; &#39;Documentation Index&#39;,
+    type =&gt; &#39;book&#39;,
+    location =&gt; 0,
+    anchor =&gt; &quot;#&quot;,
+    style =&gt; &quot;h1&quot;,
+    link =&gt; &quot;index.html&quot;,
+});
+
+if (-e $pindexfile) {
+    local $/ = undef;
+    local *FILE;
+    open FILE, &quot;&lt;$pindexfile&quot; and do {
+        my $pindex = &lt;FILE&gt;;
+        close FILE;
+
+        eval {
+            $pindex = from_json($pindex);
+            $packageindex-&gt;FROM_JSON($pindex);
+        };
+        if ($@) {
+            print &quot;[W] Invalid index.json file: $@\n&quot;;
+        }
+    }
+};
+
+my @mypath = split /\:\:/, $titlefilename;
+unshift @mypath, &#39;documenter_root&#39;;
+
+my $this_node = $packageindex-&gt;has_path(\@mypath);
+if(!defined $this_node) {
+    $this_node = $packageindex-&gt;make_path(\@mypath, {
+        title =&gt; $mypath[$#mypath],
+        type =&gt; &#39;file&#39;,
+        location =&gt; 0,
+        anchor =&gt; &quot;#&quot;,
+        style =&gt; &quot;h1&quot;,
+        link =&gt; $htmlfilename,
+    });
+}
+
+for (my $i = 1; $i &lt;= $#mypath; $i++) {
+    my @subpath = @mypath[0..($i-1)];
+    my $path_node = $packageindex-&gt;has_path(\@subpath)
+        or die &quot;Tree node creation failed for @subpath&quot;;
+
+    if(!defined ($path_node-&gt;value) || $path_node-&gt;value eq &quot;&quot;) {
+        $path_node-&gt;value({
+            title =&gt; $mypath[$i-1],
+            style =&gt; &#39;h1&#39;,
+            type =&gt; &#39;folder&#39;,
+        });
+    }
+}</code></pre></div><a name="line_258" /><strong>## </strong><span class="monospaced"> set up parsing </span><a name="line_259" /><div class="code"><pre><code class="perl">our $documentation = $outputclass-&gt;new;</code></pre></div><a name="line_261" /><strong>## </strong><span class="monospaced"> check if it&amp;#39;s perl </span><a name="line_262" /><div class="code"><pre><code class="perl">if ($filename =~ m/\.pl$/i
+||  $filename =~ m/\.pm$/i) {
+    # setup print handlers.
+    Tools::PerlParser::setHandler( &#39;code&#39;,    \&amp;perl_code_handler );
+    Tools::PerlParser::setHandler( &#39;comment&#39;, \&amp;comment_handler );
+    Tools::PerlParser::setHandler( &#39;pod&#39;,     \&amp;pod_handler );
+    Tools::PerlParser::setHandler( &#39;end&#39;,     \&amp;pod_handler );</code></pre></div><a name="line_270" /><strong>## </strong><span class="monospaced"> start parsing. Print handlers above will add to documentation string </span><a name="line_271" /><div class="code"><pre><code class="perl">Tools::PerlParser::parse($filename);</code></pre></div><a name="line_273" /><strong>## </strong><span class="monospaced"> update index </span><a name="line_274" /><div class="code"><pre><code class="perl">my $index_top = Tools::PerlParser::get_contents_tree();
+    $index_top-&gt;traverse_update(\&amp;index_item_info);
+    $this_node-&gt;children($index_top-&gt;children);</code></pre></div><a name="line_277" /><strong>## </strong><span class="monospaced"> check if it is markdown or other stuff we can handle directly </span><a name="line_278" /><div class="code"><pre><code class="perl">} elsif ($filename =~ m/\.md$/
+    ||   $filename =~ m/\.markdown$/
+    ||   $filename =~ m/\.pod$/
+    ||   $filename =~ m/\.js$/
+    ||   $filename =~ m/\.html$/
+    ||   $filename =~ m/README$/
+    ||   $filename =~ m/LICENSE$/
+    ) {
+    my $md = &#39;&#39;;
+    { local $/ = undef; local *FILE; open FILE, &quot;&lt;&quot;, $filename
+        or die &quot;Unable to open $filename&quot;; $md = &lt;FILE&gt;; close FILE }
+    my $type = &#39;text&#39;;
+    if($filename =~ m/\.([a-z0-9]+)$/i) {
+        $type = lc $1;
+    }
+
+    if($type eq &#39;markdown&#39;) {
+        $type = &#39;md&#39;;
+    }
+
+    # print &quot;Documenting $filename as $type\n&quot;;
+    $documentation-&gt;code($md, $type);
+} else {
+    die &quot;Unknown file format for $filename&quot;;
+}</code></pre></div><a name="line_304" /><strong>## </strong><span class="monospaced"> remove temp files </span><a name="line_305" /><div class="code"><pre><code class="perl">unlink (&#39;pod2htmd.tmp&#39;);
+unlink (&#39;pod2htmi.tmp&#39;);</code></pre></div><a name="line_308" /><strong>## </strong><span class="monospaced"> process template </span><a name="line_309" /><div class="code"><pre><code class="perl">my $template = Template-&gt;new({
+    INCLUDE_PATH =&gt; $Bin,
+    ABSOLUTE =&gt; 1,
+    EVAL_PERL =&gt; 1,
+    OUTPUT =&gt; File::Spec-&gt;catfile($outputdirectory, $htmlfilename),
+    ENCODING =&gt; &#39;utf8&#39;,
+});
+
+my $vars = {
+    doc =&gt; {
+        TITLE =&gt; $titlefilename,
+        CONTENT =&gt; $documentation-&gt;result,
+    }
+};
+
+$template-&gt;process(
+    $templatefile,
+    $vars,
+    File::Spec-&gt;catfile($outputdirectory, $htmlfilename),
+    {binmode=&gt;&#39;utf8&#39;} )
+    || die $template-&gt;error();</code></pre></div><a name="line_331" /><strong>## </strong><span class="monospaced"> finally, write updated index </span><a name="line_332" /><div class="code"><pre><code class="perl">open OUT_INDEX, &quot;&gt;:utf8&quot;, $pindexfile
+    or die &quot;Cannot write to $pindexfile&quot;;
+print OUT_INDEX to_json($packageindex-&gt;TO_JSON, {pretty=&gt;1, allow_blessed=&gt;1});
+close OUT_INDEX;</code></pre></div><a name="line_338" /><strong>## </strong><span class="monospaced"> all done </span><a name="line_339" /><div class="code"><pre><code class="perl">0;</code></pre></div><a name="line_341" /><h1>Helper functions</h1>
+
+<p>Here are some helper functions for this tool.</p>
+<a name="line_344" /><a name="line_346" /><h2>Handler function to print source code</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$current : the perl code 
+   $currentline : starting source line number </p>
+</blockquote>
+<a name="line_352" /><a name="line_354" /><div class="code"><pre><code class="perl">sub perl_code_handler {
+    our $documentation;
+    my $current     = shift;
+    my $currentline = shift;
+
+    # hide source
+    if (defined $doc_options{&#39;hide_source&#39;}
+        &amp;&amp; $doc_options{&#39;hide_source&#39;}) {
+        return;
+    }
+
+    set_current_line($currentline);
+
+    # ignore shell env...
+    $current =~ s/\#\!.*?\n//;
+
+    # ignore stuff that only consists of whitespace.
+    return if $current =~ m/^\W*$/;
+
+    # remove trailing empty lines
+    $current =~ s/(.*)\n+$/$1/g;
+
+    # print the code
+    $documentation-&gt;code($current, &#39;perl&#39;, $currentline);
+}</code></pre></div><a name="line_380" /><h2>Handler function to print and format PerlPod code</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$current : the code </p>
+</blockquote>
+<a name="line_385" /><a name="line_387" /><div class="code"><pre><code class="perl">sub pod_handler {
+    our $documentation;
+    my $current     = shift;
+    my $currentline = shift;
+    set_current_line($currentline);
+    $documentation-&gt;code($current, &#39;pod&#39;, $currentline);
+}</code></pre></div><a name="line_395" /><h2>Handler function to print and format comments</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$current : the code </p>
+</blockquote>
+<a name="line_399" /><a name="line_401" /><div class="code"><pre><code class="perl">sub comment_handler {
+    our $documentation;
+    my $current     = encode_entities(shift);
+    my $currentline = shift;
+    set_current_line($currentline);</code></pre></div><a name="line_407" /><strong>## </strong><span class="monospaced"> here we process special markup comments. </span><a name="line_408" /><div class="code"><pre><code class="perl">if ($current =~ m/^\s*hide\s+source/) {
+        $doc_options{hide_source} = 1;
+    } elsif ($current =~ m/^\s*show\s+source/) {
+        $doc_options{hide_source} = 0;
+    } else {
+        $current =~ s/\n/ /g;
+        $current = $documentation-&gt;b(&#39;## &#39;) . $documentation-&gt;tt(
+            $documentation-&gt;x($current) );
+        $documentation-&gt;t($current);
+    }
+
+}</code></pre></div><a name="line_421" /><h2>get the line anchor closest to the given line</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$lineno : the line number </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>An anchor that is close to that line number. </p>
+</blockquote>
+<a name="line_429" /><a name="line_431" /><div class="code"><pre><code class="perl">sub get_closest_line_anchor {
+    my $lineno = shift;
+
+    our @line_index;
+    my $closest_line_dist   = -1;
+    my $closest_line_anchor = &quot;#&quot;;
+    foreach (@line_index) {
+        my $line_dist = abs( $lineno - $_-&gt;[0] );
+        my $anchor    = $_-&gt;[1];
+
+        if (   $closest_line_dist &lt; 0
+            || $line_dist &lt; $closest_line_dist )
+        {
+            $closest_line_dist   = $line_dist;
+            $closest_line_anchor = &quot;#&quot; . $anchor;
+            if ( $line_dist == 0 ) {
+                last;
+            }
+        }
+    }
+
+    return $closest_line_anchor;
+}</code></pre></div><a name="line_455" /><h2>Function to add location info to index items.</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$item : an index tree item </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>A string with a formatted, hyperlinked item. </p>
+</blockquote>
+<a name="line_463" /><a name="line_465" /><div class="code"><pre><code class="perl">sub index_item_info {
+    my $item = $_-&gt;[0];
+
+    my $closest_line_anchor = get_closest_line_anchor( $item-&gt;{&#39;location&#39;} || 0 );
+    my $options = $index_options{ $item-&gt;{&#39;type&#39;} };
+    $options = &quot;&quot; if !defined($options);
+    our $htmlfilename;
+    my $link = $htmlfilename . $closest_line_anchor;
+
+    $item-&gt;{anchor}  = $closest_line_anchor;
+    $item-&gt;{options} = $options;
+    $item-&gt;{link}    = $link;
+
+    return $item;
+}</code></pre></div><a name="line_481" /><h2>Function to create line anchors.</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$line : the current line </p>
+</blockquote>
+<a name="line_486" /><a name="line_488" /><div class="code"><pre><code class="perl">sub set_current_line {
+    our $documentation;
+    my $line = shift;
+    our @line_index;
+
+    $documentation-&gt;a(&quot;line_$line&quot;);
+    push @line_index, [ $line, &quot;line_$line&quot; ];
+}</code></pre></div><a name="line_497" /><a name="line_499" /><h1>Tool usage</h1>
+
+<h2>Commenting guidelines</h2>
+
+<p>The documenter recognizes standard Perl comments, POD comments, and some
+extra markup.</p>
+
+<p>Here is a list of the extra rules that apply.</p>
+
+<ul>
+<li>Double comment lines: Code lines starting with ## will be added to the outline and separate
+code blocks.</li>
+<li>Function parameter descriptions: before sub&#39;s or Moose method&#39;s, pod comments may be
+specified as follows:</li>
+</ul>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$parameter1 : what $parameter1 does 
+   $parameter2 : what $parameter2 does 
+   &hellip; </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>What is returned. </p>
+</blockquote>
+
+<p>Of course, you could also be more verbose.</p>
+
+<h2>Command line usage</h2>
+
+<p>Code Documenter options:</p>
+
+<pre><code>documenter.pl [options] &lt;filename&gt;
+Where [options] can be
+--outputdirectory &lt;dirname&gt; : set an output directory for the
+                             generated HTML files.
+                          Default value: &quot;./&quot;
+
+--sourcedirectory &lt;dirname&gt; : set an source directory to copy
+                             styles, images, etc. from
+                             This directory will default to the
+                          location of documenter.pl.
+
+--format &lt;html/md&gt;          : specify the output format
+
+--index                     : make an index file, too.
+</code></pre>
+</div>
+<div id="footer" class="ui-widget-content ui-widget-header ui-corner-all">Generated using <a href="https://github.com/pkrusche/documenter">Perl Documenter</a> &copy; 2012 Peter Krusche</div>
+</body>
+</html>

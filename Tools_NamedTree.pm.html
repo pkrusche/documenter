@@ -1,0 +1,162 @@
+<html>
+<head> <title>Tools::NamedTree.pm</title>
+<script src="js/jquery.js" ></script>
+<script src="js/jquery-ui.js" ></script>
+
+<script src="js/highlight.pack.js" ></script>
+
+<script src="js/index.js" ></script>
+<script src="js/search.js" ></script>
+<script src="js/documenter.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/github.css" />
+<link rel="stylesheet" type="text/css" href="css/documenter.css" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="feed.rss">
+
+ <script>
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+<div id="toolbar" class="ui-widget-content ui-widget-header ui-corner-all" style="display:none;">
+	<center>
+		<button id="upbutton">Index</button>
+		<button id="indexbutton">Outline</button>&nbsp;
+		<span id="search"></span>
+		<span id="collapseexpand">
+			<button id="collapseall">Collapse Code</button>
+			<button id="expandall">Expand Code</button>
+		</span>
+		<button id="print">Print</button>
+	</center>
+</div>
+<div id="index" class="ui-widget-content ui-corner-all" style="padding: 5px">
+	<noscript><a href="static_index.html">Click here to show the complete source index.</a>
+	</noscript>
+</div>
+<div id="content"><a name="line_1" /><div class="code"><pre><code class="perl">use MooseX::Declare;</code></pre></div><a name="line_5" /><h1>Tree with named nodes</h1>
+
+<p>Extends the standard tree class to have named nodes</p>
+<a name="line_9" /><div class="code"><pre><code class="perl">class Tools::NamedTree extends Tools::Tree {
+
+	use Carp qw(croak);
+	use Data::Dumper;
+
+	# name of this node</code></pre></div><a name="line_16" /><div class="code"><pre><code class="perl">has &#39;name&#39; =&gt; (
+		is =&gt; &#39;rw&#39;,
+		isa =&gt; &#39;Str&#39;,
+		default =&gt; &quot;&quot;,
+	);</code></pre></div><a name="line_22" /><h2>Check if a named path exists in this tree</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$path : an array of path elements. the first element is compared 
+           to $self-&gt;{name}, the following ones to the children </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>The NamedTree corresponding to the path, or undef if no such tree was found </p>
+</blockquote>
+<a name="line_31" /><a name="line_33" /><div class="code"><pre><code class="perl">method has_path (ArrayRef $path) {
+		if (scalar @$path == 1 ) {
+			if ($self-&gt;{name} eq $path-&gt;[0]) {
+				return $self;
+			}
+		} elsif (scalar @$path &gt; 1 &amp;&amp;
+				 $self-&gt;{name} eq $path-&gt;[0]
+		) {
+			my @vals = @$path;
+			shift @vals;
+			foreach my $c (@{$self-&gt;{children}}) {
+				my $result = $c-&gt;has_path(\@vals);
+				if(defined ($result)) {
+					return $result;
+				}
+			}
+		}
+		return undef;
+	}</code></pre></div><a name="line_53" /><h2>Make a child node with a given path (unless it already exists)</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$path : an array of path elements. the first element is compared 
+           to $self-&gt;{name}, the following ones to the children 
+   $value : a value to append to the new child </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>The NamedTree corresponding to the path </p>
+</blockquote>
+<a name="line_63" /><div class="code"><pre><code class="perl">method make_path (ArrayRef $path, Any $value) {
+		if(scalar @$path == 0) {
+			croak (&quot;NamedTree::make_path : empty path given.&quot;);
+		}
+		if (scalar @$path == 1 ) {
+			if ($self-&gt;name() eq $path-&gt;[0]) {
+				$self-&gt;value($value);
+				return $self;
+			}
+		} elsif (scalar @$path &gt; 1 &amp;&amp;
+				 $self-&gt;name() eq $path-&gt;[0]
+		) {
+			my @vals = @$path;
+			shift @vals;
+			foreach my $c (@{$self-&gt;{children}}) {
+				if($c-&gt;name() eq $vals[0]) {
+					my $result = $c-&gt;make_path(\@vals, $value);
+					return $result;
+				}
+			}
+			# if we end up here, we haven&#39;t found any child with an appropriate
+			# name
+			my $child = $self-&gt;add_child(undef);
+			$child-&gt;name($vals[0]);
+
+			return $child-&gt;make_path(\@vals, $value);
+		}
+		croak (&quot;NamedTree::make_path : will not rename $self-&gt;{name} &quot;.
+			  &quot;to $path-&gt;[0]&quot;);
+	}</code></pre></div><a name="line_95" /><h2>Convert tree to JSON-compatible tree.</h2>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>untyped, JSON-compatible tree (removing the parent links) </p>
+</blockquote>
+<a name="line_99" /><div class="code"><pre><code class="perl">method TO_JSON () {
+        my $h = $self-&gt;SUPER::TO_JSON;
+        $h-&gt;{name} = $self-&gt;name;
+        return $h;
+    }</code></pre></div><a name="line_106" /><h2>restore parent links and blessings after serializing to JSON</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$hash : JSON-compatible hash (see TO_JSON) </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>$self </p>
+</blockquote>
+<a name="line_113" /><div class="code"><pre><code class="perl">method FROM_JSON(HashRef $hash) {
+    	$self-&gt;SUPER::FROM_JSON($hash);
+    	$self-&gt;name($hash-&gt;{name});
+        return $self;
+    }
+};</code></pre></div></div>
+<div id="footer" class="ui-widget-content ui-widget-header ui-corner-all">Generated using <a href="https://github.com/pkrusche/documenter">Perl Documenter</a> &copy; 2012 Peter Krusche</div>
+</body>
+</html>

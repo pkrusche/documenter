@@ -1,0 +1,102 @@
+<html>
+<head> <title>Tools::CommentSpecials.pm</title>
+<script src="js/jquery.js" ></script>
+<script src="js/jquery-ui.js" ></script>
+
+<script src="js/highlight.pack.js" ></script>
+
+<script src="js/index.js" ></script>
+<script src="js/search.js" ></script>
+<script src="js/documenter.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/github.css" />
+<link rel="stylesheet" type="text/css" href="css/documenter.css" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="feed.rss">
+
+ <script>
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+<div id="toolbar" class="ui-widget-content ui-widget-header ui-corner-all" style="display:none;">
+	<center>
+		<button id="upbutton">Index</button>
+		<button id="indexbutton">Outline</button>&nbsp;
+		<span id="search"></span>
+		<span id="collapseexpand">
+			<button id="collapseall">Collapse Code</button>
+			<button id="expandall">Expand Code</button>
+		</span>
+		<button id="print">Print</button>
+	</center>
+</div>
+<div id="index" class="ui-widget-content ui-corner-all" style="padding: 5px">
+	<noscript><a href="static_index.html">Click here to show the complete source index.</a>
+	</noscript>
+</div>
+<div id="content"><a name="line_1" /><a name="line_4" /><h1>Process Special Comments within Markdown/Pod blocks</h1>
+<a name="line_6" /><div class="code"><pre><code class="perl">package Tools::CommentSpecials;
+
+use strict;
+our @ISA = qw(Exporter);
+require Exporter;
+
+our @EXPORT_OK = qw(markdown_specials);</code></pre></div><a name="line_16" /><h2>Process special bits of markup</h2>
+
+<p><strong>Parameters:</strong> </p>
+
+<blockquote>
+<p>$md     : the markdown code </p>
+</blockquote>
+
+<p><strong>Return:</strong> </p>
+
+<blockquote>
+<p>processed markdown. </p>
+</blockquote>
+<a name="line_24" /><a name="line_26" /><div class="code"><pre><code class="perl">sub markdown_specials {
+	my $md = shift;
+
+	my $state = &quot;&quot;;
+	my $out   = &quot;&quot;;
+	my @lines = split/\n/, $md;
+	foreach my $l (@lines) {
+		my $cpy = $l;
+		$cpy =~ s/^\s+//;
+		$cpy =~ s/\s+$//;
+
+		if ($cpy=~ m/^Parameters\:$/i) {
+			$state = &#39;bq0&#39;;
+			$l = &quot;**Parameters:** \n&quot;;
+		} elsif ($cpy=~ m/^Return(s)?\:$/i) {
+			$state = &#39;bq0&#39;;
+			$l = &quot;**Return:** \n&quot;;
+		}
+
+		if($cpy eq &#39;&#39;) {
+			$state = &#39;&#39;;
+		}
+
+		if ($state eq &#39;bq&#39;) {
+			$out.= &quot;&gt;&quot; . $l . &quot; \n&quot;;
+		} else {
+			$out.= $l . &quot;\n&quot;;
+		}
+
+		if($state eq &#39;bq0&#39;) {
+			$state = &#39;bq&#39;;
+		}
+	}
+
+	return $out;
+}
+
+1;</code></pre></div></div>
+<div id="footer" class="ui-widget-content ui-widget-header ui-corner-all">Generated using <a href="https://github.com/pkrusche/documenter">Perl Documenter</a> &copy; 2012 Peter Krusche</div>
+</body>
+</html>
