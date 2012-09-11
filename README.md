@@ -48,6 +48,8 @@ Using the recursivedocumenter script, this can be done recursively for a set
 of modules. The generated index then allows searching across a bigger set of
 source files.
 
+Finally, it's self-documenting: see [http://pkrusche.github.com/documenter].
+
 Dependencies
 ------------
 
