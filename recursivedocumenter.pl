@@ -88,15 +88,15 @@ if (!-e $outputdirectory || !-d $outputdirectory || !-w $outputdirectory) {
 
 ## ignore output directory
 push @rootdir, $outputdirectory;
-push @rootdir, File::Spec->catdir($sourcedirectory, '.git');
+push @rootdir, File::Spec->catdir($directories[0], '.git');
 
-my $ignores_file = File::Spec->catfile($sourcedirectory, '.docignore');
+my $ignores_file = File::Spec->catfile($directories[0], '.docignore');
 if( -e $ignores_file ) {
 	my $dign;
 	{ local $/ = undef; local *FILE; open FILE, "<", $ignores_file;
 		$dign = <FILE>; close FILE }
 	my @digns = split /[\r\n]+/, $dign;
-	push @rootdir, File::Spec->catdir($sourcedirectory, $_) foreach @digns;
+	push @rootdir, File::Spec->catdir($directories[0], $_) foreach @digns;
 }
 
 for (my $i = 0; $i < scalar @rootdir; $i++) {
@@ -104,7 +104,7 @@ for (my $i = 0; $i < scalar @rootdir; $i++) {
 		$rootdir[$i] = abs_path($rootdir[$i]);
 	};
 	if ($@) {
-		print "[W] Directory $rootdir[$i] cannot be ignored because it doesn't exist.\n$@\n";
+		print "[W] $rootdir[$i] cannot be ignored because it doesn't exist.\n$@\n";
 	}
 }
 
@@ -140,9 +140,12 @@ sub wanted {
 	return if index($abs_name, $sd_abs_path_ignore) == 0;
 
 	foreach my $rd (@rootdir) {
+		# print "Testing $abs_name against $rd...";
 		if(index($abs_name, $rd) == 0) {
+			# print " rejected\n";
 			return;
 		}
+		# print " ok.\n";
 	}
 
 	# Perl files and Perl Modules
