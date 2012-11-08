@@ -31,6 +31,7 @@ use Getopt::Long;
 use Cwd;
 use JSON;
 use Template;
+use Storable;
 
 ## These are our own tool libraries
 use Tools::NamedTree;
@@ -66,6 +67,8 @@ my $format = 'html';
 # make an index file
 my $mkindex = 1;
 
+my $verbose = 0;
+
 GetOptions(
     'outputdirectory|o=s' => \$outputdirectory,
     'sourcedirectory|s=s' => \$sourcedirectory,
@@ -73,6 +76,7 @@ GetOptions(
     'nohelpercopy|n!'     => \$nohelpercopy,
     'index|i!'            => \$mkindex,
     'format|f=s'          => \$format,
+    'verbose|v!'          => \$verbose,
 );
 
 if ($usage) {
@@ -154,6 +158,9 @@ if(-d $templatedir) {
     die "Unknown template $format"
 }
 
+print STDERR "Template directory: $templatedir\n"
+    if $verbose;
+
 =head2 File parsing and index generation
 
 =cut
@@ -194,6 +201,9 @@ our $htmlfilename = $filename . ".$format";
 $htmlfilename =~ s/^\.\///;
 $htmlfilename =~ s/\//_/g;
 
+print STDERR "Reading package index\n"
+    if $verbose;
+
 ##  get the index tree for all files
 ## append index tree to package index
 my $pindexfile = File::Spec->catfile($outputdirectory, "index.json");
@@ -208,22 +218,26 @@ $packageindex->value({
     link => "index.html",
 });
 
-if (-e $pindexfile) { 
-    local $/ = undef; 
-    local *FILE; 
-    open FILE, "<$pindexfile" and do {
-        my $pindex = <FILE>; 
-        close FILE;
+if (-e $pindexfile . ".storable") { 
+    # local $/ = undef; 
+    # local *FILE; 
+    # open FILE, "<$pindexfile" and do {
+    #     my $pindex = <FILE>; 
+    #     close FILE;
 
-        eval {
-            $pindex = from_json($pindex);
-            $packageindex->FROM_JSON($pindex);
-        };
-        if ($@) {
-            print "[W] Invalid index.json file: $@\n";
-        }
-    } 
+    #     eval {
+    #         $pindex = from_json($pindex);
+    #         $packageindex->FROM_JSON($pindex);
+    #     };
+    #     if ($@) {
+    #         print "[W] Invalid index.json file: $@\n";
+    #     }
+    # } 
+    $packageindex = retrieve($pindexfile . ".storable");
 };
+
+print STDERR "Updating package index\n"
+    if $verbose;
 
 my @mypath = split /\:\:/, $titlefilename;
 unshift @mypath, 'documenter_root';
@@ -253,6 +267,9 @@ for (my $i = 1; $i <= $#mypath; $i++) {
         });
     }
 }
+
+print STDERR "Starting to parse\n"
+    if $verbose;
 
 ## set up parsing
 our $documentation = $outputclass->new;
@@ -304,6 +321,9 @@ if ($filename =~ m/\.pl$/i
 unlink ('pod2htmd.tmp');
 unlink ('pod2htmi.tmp');
 
+print STDERR "Processing output template\n"
+    if $verbose;
+
 ## process template
 my $template = Template->new({
     INCLUDE_PATH => $Bin,
@@ -328,11 +348,19 @@ $template->process(
     || die $template->error();
 
 ## finally, write updated index
+
+print STDERR "Writing package index\n"
+    if $verbose;
+
 open OUT_INDEX, ">:utf8", $pindexfile
     or die "Cannot write to $pindexfile";
 print OUT_INDEX to_json($packageindex->TO_JSON, {pretty=>1, allow_blessed=>1});
 close OUT_INDEX;
 
+store($packageindex, $pindexfile . ".storable");
+
+print STDERR "Done.\n"
+    if $verbose;
 
 ## all done
 0;

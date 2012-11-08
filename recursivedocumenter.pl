@@ -181,12 +181,14 @@ sub wanted {
 					$documenterpl,
 					"--format", $format, 
 					"-n", 
+					"-v", # verbose
 					"--outputdirectory", $outputdirectory,
 					"--sourcedirectory", $sourcedirectory,
 					$nametopass;
         } else {
 			system 	$perl_command, 
 					$documenterpl,
+					"-v", # verbose
 					"--format", $format, 
 					"--outputdirectory", $outputdirectory,
 					"--sourcedirectory", $sourcedirectory,
